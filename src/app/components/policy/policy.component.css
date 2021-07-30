@@ -1,0 +1,29 @@
+.rules{
+    margin: 10px auto 0;
+    width: 100%;
+}
+
+.rules h2{
+    color: #EF5222;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.rules .title{
+  
+    text-align: center;
+    font-family: 'Oswald', sans-serif; 
+    display: block;
+    
+}
+
+.rules p{
+    text-align: justify;
+    margin: 15px;
+ 
+    
+    
+}

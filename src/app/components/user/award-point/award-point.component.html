@@ -1,0 +1,82 @@
+<app-header [index]=-1></app-header>
+<section class="container">
+    <div class="title" style="padding: 1rem;">
+        <h2>Thông tin điểm thưởng</h2>
+    </div>
+    <section>
+        <div class="reward-point-container">
+            <div class="reward-point-left">
+                <div class="title">
+                    Chính sách điểm thưởng
+                </div>
+                <p>Chương trình bao gồm các đối tượng: <span style="color: #EF5222;">Thành viên | Khách hàng thân thiết | Khách hàng VIP</span> , với những quyền lợi và mức ưu đãi khác nhau. Mỗi khi thực hiện giao dịch mua vé thành công tại hệ thống ONLINE của chúng tôi, bạn sẽ nhận ngay một số điểm thưởng nhất định.</p>
+                <p>Hãy tích luỹ thật nhiều điểm thưởng để nâng cấp thành viên và đổi vé tương ứng!</p>
+                <p>Ví dụ: với giao dịch mua vé bạn có thể:
+                </p>
+                <table>
+                    <tr>
+                        <th>Cấp độ</th>
+                        <th>Điểm</th>
+                        <th>Giảm (%)</th>
+                    </tr>
+                    <tr>
+                        <td style="background: #FAF2CC;">Thành viên</td>
+                        <td style="background: #FAF2CC;">0</td>
+                        <td style="background: #FAF2CC;">0</td>
+                    </tr>
+                    <tr>
+                        <td style="background: #EBCCCC;">Khách hàng thân thiết</td>
+                        <td style="background: #EBCCCC;">1.000</td>
+                        <td style="background: #EBCCCC;">5%</td>
+                    </tr>
+                    <tr>
+                        <td style="background: #EBCCCC;">Khách hàng tìm năng</td>
+                        <td style="background: #EBCCCC;">2.000</td>
+                        <td style="background: #EBCCCC;">8%</td>
+                    </tr>
+                    <tr>
+                        <td style="background: #EBCCCC;">Khách hàng VIP</td>
+                        <td style="background: #EBCCCC;">4.000</td>
+                        <td style="background: #EBCCCC;">10%</td>
+                    </tr>
+                    <tr>
+                        <td style="background: #D0E9C6;">Khách hàng VIP Pro</td>
+                        <td style="background: #D0E9C6;">6.000</td>
+                        <td style="background: #D0E9C6;">15%</td>
+                    </tr>
+                </table>
+    
+                <p>Điểm thưởng được dùng để thanh toán cho các giao dịch của bạn tại hệ thống đặt vé ONLINE của FUTA Bus Lines
+                    <span style="display: block; font-weight: normal;">- Thanh toán 80.000 VND + 20 điểm thưởng</span>
+                </p>
+            </div>
+            <div class="reward-point-right">
+                <div class="title">
+                    Điểm thưởng
+                </div>
+                <div class="notification">
+                    <p>Thông báo! Bus Lines trân trọng thông báo đến quý hành khách về chương trình đổi điểm thưởng để mua vé dự kiến sẽ được tổ chức theo đợt, vì vậy quý hành khách hãy mua vé để tích lũy thật nhiều điểm thưởng và cơ hội nhận được những ưu đãi từ hệ thống đặt vé ONLINE của Futa Bus Lines.</p>
+                </div>
+                <div class="level">
+                    <div class="level-item first">
+                        <div class="level-item-left">
+                            <p><i class="fas fa-star"></i> Cấp độ thành viên</p>
+                        </div>
+                        <div class="level-item-right">
+                            <p>{{level}}</p>
+                        </div>
+                    </div>
+                    <div class="level-item">
+                        <div class="level-item-left">
+                            <p><i class="fas fa-gift"></i> Tổng số điểm tích lũy</p>
+                        </div>
+                        <div class="level-item-right">
+                            <p>{{customerInfor.tongDiem}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+<app-footer></app-footer>

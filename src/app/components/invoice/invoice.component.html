@@ -1,0 +1,86 @@
+<app-header [index]="3"></app-header>
+<div style="height: 50px;">
+
+</div>
+<section *ngIf="!isShow && !isLoad" class="container">
+  <div class="invoice">
+    <h2>Tra cứu hóa đơn</h2>
+    <div style="margin: 3% 0%">
+      <label>Tuyến xe</label>
+      <div>
+        <select name="route"  (change)="onChangeRoute($event.target)">
+            <option *ngFor="let route of routes" value="{{route.id}}">{{route.ben_xe_di}}  ⇒  {{route.ben_xe_toi}}</option>
+        </select>
+      </div>
+    </div>
+    <div style="margin: 3% 0%; display: flex; justify-content: space-between;">
+        <div style="width: 49%;">
+            <label>Ngày</label>
+            <div>        
+                <input type="date" value="{{today}}" [(ngModel)]="today">
+            </div>
+        </div>
+        <div style="width: 49%;">
+            <label>Giờ chạy</label>
+            <div>        
+                <select name="time" id="time" (change)="onChangeTime($event.target)">
+                    <option *ngFor="let t of time" value="{{t.giochay}}">{{t.giochay}} h</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div style="margin: 3% 0%">
+        <label>Gmail</label>
+        <div>
+            <input type="text" [(ngModel)]="email">
+        </div>
+    </div>
+    <div>
+        <label>Số điện thoại</label>
+        <div>
+            <input type="text" [(ngModel)]="phone">
+        </div>
+    </div>
+    <div>
+        <button class="button" id="btn-search" (click)="onSearch()">Tìm Kiếm</button>
+    </div>
+  </div>
+</section>
+
+<app-loading *ngIf="isLoad"></app-loading>
+<section *ngIf="isShow && !isLoad" class="container">
+  <div class="infor-invoice">
+    <h2 class="title">THÔNG TIN VÉ</h2>
+    <table>
+      <tr>
+        <th>Ngày mua</th>
+        <th>Ngày chạy</th>
+        <th>Tuyến xe</th>
+        <th>Giờ chạy</th>
+        <th>Tổng vé</th>
+        <th>Giường</th>
+        <th>Giá vé</th>
+        <th></th>
+      </tr>
+      <tr *ngFor="let t of ticket">
+        <td>{{t.ngay_dat}}</td>
+        <td>{{t.ngay_chay}}</td>
+        <td>{{t.tuyen_xe}}</td>
+        <td>{{t.gio_chay}}h</td>
+        <td>{{t.slots.length}}</td>
+        <td>
+          <ng-container *ngFor="let s of t.slots; let i = index">
+            {{s}} <span *ngIf="i<t.slots.length-1">, </span>
+          </ng-container>
+        </td>
+        <td>{{t.gia_ve}} <sup>đ</sup></td>
+        <td class="refund" (click)="onCancel(t.id)"><i class="fas fa-undo"></i></td>
+      </tr>
+    </table>
+  </div>
+  <button class="btn-back" (click)="onBack()">Quay lại</button>
+</section>
+<div style="height: 50px;">
+
+</div>
+<app-footer></app-footer>

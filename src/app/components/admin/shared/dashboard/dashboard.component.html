@@ -1,0 +1,50 @@
+<nav>
+    <div style="display: flex; justify-content: space-between;">
+        <div class="nav-dashboard">
+            <div class="nav-dashboard-logo">
+                <a class="logo" (click)="onHome()">Transportation Services</a>
+            </div>
+            <div class="list-items">
+                <ul>
+                    <li class="item-admin" (click)="onCheckClickMenu(0)">
+                        <i class="fas fa-home"></i> 
+                        Dashboard
+                    </li>
+                    <li class="item-admin" (click)="onCheckClickMenu(1)"><i class="fas fa-user-circle"></i> Tài Khoản</li>
+                    <li class="item-admin" (click)="onCheckClickMenu(2)"><i class="fas fa-map-marker-alt"></i> Bến xe</li>
+                    <li class="item-admin" (click)="onCheckClickMenu(3)"><i class="fas fa-link"></i> Tuyến Xe</li>
+                    <li class="item-admin" (click)="onCheckClickMenu(4)"><i class="fas fa-bus-alt"></i> Loại Xe</li>
+                    <li class="item-admin" (click)="onCheckClickMenu(5)"><i class="fas fa-file-excel"></i> Xuất Lịch Trình</li>
+                </ul>
+            </div>
+        </div>
+        <div class="data">
+            <div class="data-nav">
+                <a style=" margin-right: 2.5rem; user-select: none;" (click)="onShowAdmin()"><i class="fas fa-user-circle"></i> Admin</a>
+                <div id="infor-user" class="infor-user">
+                    <div class="infor-user-icon">
+                        <i class="fas fa-user-circle" ></i>
+                    </div>
+                    <div>
+                        <h2>{{customer.ten_khach_hang}}</h2>
+                    </div>
+                    <div>
+                        <ul>
+                            <li (click)="onLogOut()" style="border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;" >
+                                <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="type">
+                <app-home-admin *ngIf="isShowComponent==0"></app-home-admin>
+                <app-account-management *ngIf="isShowComponent==1"></app-account-management>
+                <app-bus-station *ngIf="isShowComponent==2"></app-bus-station>
+                <app-bus-route *ngIf="isShowComponent==3"></app-bus-route>
+                <app-bus-type *ngIf="isShowComponent==4"></app-bus-type>
+                <app-export-file *ngIf="isShowComponent==5"></app-export-file>
+            </div>
+        </div>
+    </div>
+</nav>

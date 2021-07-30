@@ -1,0 +1,122 @@
+h2{
+    text-transform: uppercase;
+}
+
+.reward-point-container{
+    margin: 20px auto;
+    height: 500px;
+    width: 100%;
+}
+
+.reward-point-container .reward-point-left{
+    float: left;
+    height: 500px;
+    width: 48.5%;
+}
+
+.reward-point-container .reward-point-right{
+    float: right;
+    height: 500px;
+    width: 48.5%;
+}
+
+.title{
+    text-align: left;
+}
+
+.reward-point-container .title{
+    text-align: left;
+    padding: 10px;
+    background: #009344;
+    font-size: 18px;
+    text-transform: uppercase;
+    color: white;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.reward-point-container .reward-point-left p{
+    text-align: justify;
+}
+
+.reward-point-container .reward-point-left table{
+    width: 100%;
+}
+
+
+.reward-point-container .reward-point-left th{
+    background: #E8E8E8;
+    
+}
+
+.reward-point-container .reward-point-left th, td{
+    text-align: center;
+    font-size: 16px;
+}
+
+.reward-point-container .reward-point-right .notification{
+    background: #D9EDF7;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.reward-point-container .reward-point-right p{
+    text-align: justify;
+    padding: 10px;
+    font-size: 16px;
+    color: #1ca0e2;
+}
+
+.reward-point-container  .reward-point-right .level{
+    margin-top: 20px;
+    height: 310px;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.reward-point-container  .reward-point-right .level .level-item{
+    height: 75px;
+    width: 100%;
+    border: 1px solid rgb(110, 106, 106);
+}
+
+.reward-point-container  .reward-point-right .level .first{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.reward-point-container  .reward-point-right .level .last{
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.reward-point-container  .reward-point-right .level .level-item .level-item-left{
+    float: left;
+    width: 40%;
+    height: 65px;
+}
+.reward-point-container  .reward-point-right .level .level-item .level-item-right{
+    float: right;
+    width: 60%;
+    height: 65px;
+}
+
+.reward-point-container  .reward-point-right .level .level-item .level-item-left p{
+    color: black;
+    margin-top: 10px;
+}
+
+.reward-point-container  .reward-point-right .level .level-item .level-item-right p{
+    padding: 10px 20px;
+    text-align: center;
+    width: 40%;
+    color: black;
+    float: right;
+    font-size: 18px;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-right: 20px;
+    font-weight: bold;
+    background: #777777;
+    color: white;
+}

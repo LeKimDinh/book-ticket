@@ -1,0 +1,53 @@
+<app-header [index]=1></app-header>
+<section>
+    <div class="container">
+        <img src="../../assets/schedule.png" alt="">
+        <div class="search">
+            <div class="search-left">
+                <input #placeGo type="text" placeholder="Tìm điểm đi">
+                <span class="fas fa-search"></span>
+            </div>
+            <div class="search-right">
+                <input #placeDes type="text" placeholder="Tìm điểm đến">
+                <span class="fas fa-search"></span>
+            </div>
+        </div>
+        <div class="schedule-content scroll">
+            <div style="margin-top:50px" *ngIf="isLoad">
+                <app-loading></app-loading>
+            </div>
+            <table *ngIf="!isLoad">
+                <tr>
+                    <th>Tuyến Xe</th>
+                    <th>Loại Xe</th>
+                    <th>Quãng Đường</th>
+                    <th>Thời gian hành trình</th>
+                    <th>Giờ chạy</th>
+                    <th>Đặt Vé</th>
+                </tr>
+                <ng-container *ngFor="let item of busRoutes; let i = index">
+                    <tr *ngIf="i%2!=0; else elseBusShedule;" class="odd">
+                        <td style="text-align: left;"> <span style="color: #F15A61; font-weight: bold;">{{item.ben_xe_di}}</span> <span style="font-weight: bold;"> ⇒ </span><span style="color: #009344; font-weight: bold;">{{item.ben_xe_toi}}</span></td>
+                        <td> Giường</td>
+                        <td>  {{item.khoang_cach}} KM</td>
+                        <td> {{item.khoang_thoi_gian}} giờ</td>
+                        <td><span class="detail" (click)="onDetail(item)">Chi tiết <i class="fas fa-info-circle"></i></span></td>
+                        <td ><span class="book" (click)="onBookTicket(item)">Đặt vé <i class="fas fa-calendar-check"></i></span></td>
+                    </tr>
+                   <ng-template #elseBusShedule>
+                        <tr>
+                            <td style="text-align: left;"> <span style="color: #F15A61; font-weight: bold;">{{item.ben_xe_di}}</span> <span style="font-weight: bold;"> ⇒ </span><span style="color: #009344; font-weight: bold;">{{item.ben_xe_toi}}</span></td>
+                            <td> Giường</td>
+                            <td>  {{item.khoang_cach}} KM</td>
+                            <td> {{item.khoang_thoi_gian}} giờ</td>
+                            <td><span class="detail" (click)="onDetail(item)">Chi tiết <i class="fas fa-info-circle"></i></span></td>
+                            <td ><span class="book" (click)="onBookTicket(item)">Đặt vé <i class="fas fa-calendar-check"></i></span></td>
+                        </tr>
+                   </ng-template>
+                </ng-container>
+            </table>
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>
+

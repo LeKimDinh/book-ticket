@@ -1,0 +1,98 @@
+<app-header [index]="-1"></app-header>
+<ng-container>
+  <section class="container">
+    <div class="history-title">
+      <h2>Lịch sử đặt vé</h2>
+      <button [disabled]="isLoading" (click)="onBookTiket()">Đặt vé</button>
+    </div>
+    <div class="type-search">
+      <div class="search">
+        <div>
+          <label for="">Mã vé</label>
+        </div>
+        <div>
+          <input #codeTicket type="text" />
+        </div>
+      </div>
+      <div class="search">
+        <div>
+          <label for="">Thời gian</label>
+        </div>
+        <div>
+          <input (change)="onChangeDate($event.target)" type="date" />
+        </div>
+      </div>
+      <div class="search">
+        <div>
+          <label for="">Tuyến đường</label>
+        </div>
+        <div>
+          <select (change)="onSearchByRoute($event.target)">
+            <ng-container *ngFor="let bR of busRoutes">
+              <option value="{{ bR.id }}">
+                {{ bR.ben_xe_di }} ⇒ {{ bR.ben_xe_toi }}
+              </option>
+            </ng-container>
+          </select>
+        </div>
+      </div>
+      <div class="search">
+        <div>
+          <label for="">Trạng thái</label>
+        </div>
+        <div>
+          <select (change)="onSearchByStatus($event.target)">
+            <option value="1">Đã chạy</option>
+            <option value="0">Chưa chạy</option>
+          </select>
+        </div>
+      </div>
+      <div class="search">
+        <div>
+          <button [disabled]="isLoading" (click)="onRefresh()" class="btn-refresh">Làm mới</button>
+        </div>
+      </div>
+    </div>
+    <app-loading *ngIf="isLoading;"></app-loading>
+    <div *ngIf="!isLoading">
+      <table style="width: 100%;" class="table-scroll small-first-col">
+        <thead>
+          <tr>
+            <th>Số lượng</th>
+            <th>Tuyến</th>
+            <th>Ngày đi</th>
+            <th>Giờ chạy</th>
+            <th>Tổng tiền</th>
+            <th>Trạng thái</th>
+            <th>Thao tác</th>
+          </tr>
+        </thead>
+        <tbody class="body-half-screen">
+          <ng-container
+          *ngFor="
+            let t of tickets 
+          "
+        >
+          <tr>
+            <td>{{ t.count }}</td>
+            <td>{{ t.ben_di }} ⇒ {{ t.ben_toi }}</td>
+            <td>{{ t.ngay_chay }}</td>
+            <td style="text-align: center;">{{ t.gio_chay }} h</td>
+            <td>{{ t.gia_ve }}</td>
+            <td *ngIf="t.trang_thai == 1">Đã chạy</td>
+            <td *ngIf="t.trang_thai == 0" class="no-run-yet">Chưa chạy</td>
+            <td *ngIf="t.trang_thai == 0">
+              <i style="cursor: pointer;" 
+                class="fas fa-undo"
+              (click)="onCancelTicket(t)"
+              ></i>
+            </td>
+            <td style="text-align: center;" *ngIf="t.trang_thai == 1"></td>
+          </tr>
+        </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</ng-container>
+<app-footer></app-footer>

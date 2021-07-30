@@ -1,0 +1,219 @@
+.form{
+    display: flex; 
+    justify-content: space-between; 
+    clear: both; 
+    padding: 5% 0%;
+}
+
+.form-left, .form-right{
+    width: 49%;
+    border-radius: 20px;
+}
+
+.form-select-time-address{
+    background-color: #f6f6f6; 
+    border-radius: 20px;
+   
+}
+
+.form-select-seats{
+    margin: 3% 0%;
+    padding: 3% 0%;
+    width: 100%;
+    
+    background-color: #f6f6f6;
+    border-radius: 20px;
+}
+
+.form-title{
+    width: 100%;
+    padding: 3%;
+
+    background-color: #00613d;
+    color: white;
+  
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+
+    text-align:  center;
+}
+
+.select-station {
+    padding: 3%;
+    font-weight: bold;
+}
+
+.form label, span, input{
+    font-size: 16px;
+}
+
+label{
+    color: #686464;
+    margin-left: 20px;
+}
+
+.select-station span{
+    margin-right: 20px;
+    float: right;
+    color: #ef5222; 
+    font-weight: bold;
+}
+
+
+.select-station select{
+    margin-left: 20px;
+    
+    width: 90%;
+    
+    padding: 5px;
+    border-radius: 10px;
+    border: none;
+    color: #585454;
+    outline: none;
+
+}
+
+/*  */
+.note{
+    display: flex;
+    justify-content: center;
+    
+}
+
+.note .note-content{
+    padding: 30px 0px;
+    font-weight: bold;
+    width: 35%;
+}
+
+.note .note-content input{
+    width: 15px;
+    height: 15px;
+    border-radius:  3px;
+}
+
+.selected-seat, .total{
+    width: 50%;
+    font-weight: bold;
+    padding: 3%;
+}
+
+.total{
+    text-align: right;
+}
+
+.total span{
+    color: #ef5222;
+    font-weight: bold;
+}
+
+.floor-1, .floor-2{
+    border: 0.5px solid rgb(230, 224, 224);
+    border-radius: 10px;
+    width: 47%;
+}
+
+.floor-2{
+    margin-right: 10px;
+}
+.floor-1{
+    margin-left: 10px;
+}
+
+.left{
+    margin-left: 25%;
+}
+
+.right{
+    margin-right: 25%;
+}
+
+td{
+    width: 15%;
+    text-align: center;
+    height: 38px;
+}
+
+td button{
+    width: 100%;
+    height: 50px;
+    font-size: 10px;
+}
+
+.disable{
+    border: 1px solid #95989b;
+    background-color: #696b6d;
+    color: white;
+    border-radius: 5px;
+}
+
+.disable button:hover{
+    cursor: no-drop;
+}
+
+.activety{
+    border: 1px solid #cbe2f3;
+    background-color: #eff9ff;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.select{
+    border: 1px solid #e05c30;
+    background-color: #e05c30;
+    border-radius: 5px;
+}
+
+.select button{
+    color: white;
+}
+
+
+.note h2{
+    text-align: center;
+    color: #ef5222;
+    padding: 3%;
+}   
+
+.note p{
+    padding: 2%;
+}
+
+.note .title{
+    text-align: center;
+    font-weight: bold;
+}
+
+.note label{
+    color: #686464;
+    text-align: left;
+    margin-left: 20px;
+    padding: 0% 2%;
+}
+
+.notifycation{
+    background-color: #e05c30;
+}
+
+.notification p{
+    text-align: center;
+    color: #e05c30;
+    text-transform: uppercase;
+}
+
+#date-go, #date-return{
+    outline: none;
+    border: none;
+    border-bottom: 1px solid;
+    text-align: center;
+    color: white;
+    font-size: 18px;
+}
+
+#date-go{
+    background-color: #00613d;
+}
+
+#date-return{
+    background-color: #ef5222;
+}

@@ -1,0 +1,227 @@
+.bus-station{
+    padding-top: 0.5rem;
+    margin: 0.2rem;
+    width: 100%;
+    background: white;
+    box-shadow: 10px 15px 20px rgba(0, 0, 0, .1);
+    padding-bottom: 1rem;
+    min-height: 600px;
+}
+
+.account-header{
+    display: flex;
+    justify-content: space-between;
+    margin: 1.5rem 1rem;
+}
+
+.account-header i{
+    font-size: 56px;
+    margin-right: 0.5rem;
+    color: #00613d;
+}
+
+.station-title{
+    padding: 1rem;
+    color: #00613d;
+    text-transform: uppercase;
+    text-align: center;
+    width: 100%;
+}
+
+.btn-year{
+    color: #00613d;
+    font-weight: bold;
+}
+
+.btn-year{
+    cursor: pointer;
+    height: 50px;
+    width: 10%;
+    margin-block-start: 0.5rem;
+}
+
+.previous{
+    color: #00613d;
+}
+
+.chart{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.chart-model{
+    width: 60%;
+    border-right: 0.2px solid #dfdfdf;
+}
+.chart-infor{
+    width: 40%;
+}
+
+.chart-infor{
+    width: 35%;
+    margin-top: 3rem;
+    justify-content: center;
+    text-align: center;
+}
+
+
+.label-blod{
+    color: #00613d;
+    font-weight: bold;
+    padding: 0.2rem;
+}
+
+.bold{
+    color: #ef5222;
+    font-weight: bold;
+}
+
+.account-header{
+    display: flex;
+    justify-content: space-between;
+    margin: 1.5rem 1rem;
+}
+
+#station{
+    font-size: 35px;
+    margin-right: 0.5rem;
+    color: #00613d;
+}
+
+#station:hover{
+    cursor: pointer;
+}
+
+#account-header span{
+    font-size: 40px;
+    color: #00613d;
+}
+
+.old{
+    background-color: #fff7f5;
+    color: #ef5222;
+}
+
+.operations i{
+    padding: 0rem 1rem;
+}
+
+.operations i:hover{
+    cursor: pointer;
+}
+
+.edit{
+    color: #00613d;
+}
+
+.delete{
+    color: #ef5222;
+}
+
+#btn-add, #btn-save{
+    background: #00613d;
+    margin: 0.5rem;
+    color: white;
+    border-radius: 20px;
+}
+
+#account-form{
+    width: 80%;
+    margin: 1.5rem auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+#account-form label{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.form-group{
+    width: 20%;
+}
+
+.account-item{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.address, .station-img{
+    width: 40%;
+}
+
+#account-form input{
+    outline: none;
+}
+
+#btn-save{
+    background: #00613d;
+}
+
+.notify{
+    color: #ef5222; 
+    width: 100%;
+}
+
+.edit{
+    color: #00613d;
+}
+
+.delete{
+    color: #ef5222; 
+}
+
+#station-form{
+    width: 80%;
+    margin: 1.5rem auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.station-item{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.input-address{
+    width: 100%;
+}
+
+#select-year{
+    width: 100%;
+}
+
+#previous-year, #next-year{
+    width: 50%;
+}
+
+#search-bus-station{
+    
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.input-search{
+    outline:  none;
+    width: 80%;
+    margin-right: 2%;
+}
+
+#btn-search{
+    width: 100px;
+    padding: 0rem;
+    background: #00613d;
+    color: white;
+    height: 35px;
+}
+
+#bus-station{
+    border: none;
+    outline: none;
+    border-bottom: 1px solid black;
+}
+

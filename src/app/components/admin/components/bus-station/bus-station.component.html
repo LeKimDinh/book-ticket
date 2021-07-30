@@ -1,0 +1,246 @@
+<section class="bus-station">
+  <div>
+    <h2 class="title station-title">
+      Biểu đồ thể hiện doanh thu của bến
+      {{ year }}
+    </h2>
+  </div>
+  <section class="chart" *ngIf="!isLoad">
+    <div class="chart-model">
+      <div style="display: block">
+        <canvas baseChart
+          [datasets]="lineChartData"
+          [labels]="lineChartLabels"
+          [options]="lineChartOptions"
+          [colors]="lineChartColors"
+          [legend]="lineChartLegend"
+          [chartType]="lineChartType"
+          [plugins]="lineChartPlugins">
+          </canvas>
+      </div>
+    </div>
+    <div class="chart-infor">
+      <p class="label-blod">
+        <i class="fas fa-map-marker-alt"></i> Bến xe 
+        <span >
+          <select 
+          name="busStatoin" 
+          id="bus-station" 
+          class="bold"
+          [(ngModel)]="busStationIdRevenue"
+          (change)="onChangeBusStation($event.target)"
+          >
+            <option *ngFor="let b of busStationsSearch" 
+            value="{{b.id}}">{{b.ben_toi}}</option>
+          </select>
+        </span>
+      </p>
+      <p class="label-blod">
+        Doanh thu năm <span class="bold">{{ year }}</span>
+      </p>
+      <p class="label-blod">
+        {{busStationRevenueForm.controls.amount.value}} <sup class="bold">VNĐ </sup>
+        <i class="fas fa-money-check-alt"></i>
+      </p>
+      <p class="label-blod">
+        {{busStationRevenueForm.controls.ticket.value}} <sup class="bold">Vé </sup>
+        <i class="fas fa-clipboard-list"></i>
+      </p>
+      <p class="label-blod">
+        Địa chỉ: <span class="bold">{{this.busStationRevenueForm.controls.address.value}}</span>
+      </p>
+      <div id="select-year">
+        <button 
+            id="previous-year" 
+            class="btn-year"
+            (click)="onPreviousYear()"
+            >
+            <i class="fas fa-angle-double-left"></i>
+            Năm trước
+        </button>
+        <button 
+            id="next-year" 
+            class="btn-year"
+            (click)="onNextYear()"
+            >
+            Năm sau
+            <i class="fas fa-angle-double-right"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+  <app-loading *ngIf="isLoad"></app-loading>
+</section>
+
+<section class="bus-station" *ngIf="!isLoad">
+  <div class="account-header">
+    <div class="account-title">
+      <i id="station" class="fas fa-tasks-alt"></i>
+      <span class="title-item">Quản lý bến xe</span>
+    </div>
+    <div id="search-bus-station"> 
+        <input 
+        class="input-search"
+        type="text"
+        placeholder="Tên thành phố"
+        [(ngModel)]="inputSearch"
+        > 
+        <div>
+          <button (click)="onSearch(inputSearch)" id="btn-search">Tìm Kiếm</button>
+        </div>
+    </div>
+  </div>
+  <hr />
+  <section id="account">
+    <table class="table-scroll small-first-col">
+      <thead> 
+        <tr>
+          <th style="flex-basis: 90%" >Tên Bến Xe</th>
+          <th>Địa chỉ</th>
+          <th>Thành Phố</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody class="body-half-screen">
+        <ng-container *ngFor="let b of busStations; let i = index">
+          <tr>
+            <td style="flex-basis: 90%">{{ b.ben_toi }}</td>
+            <td>{{ b.dia_chi }}</td>
+            <td>{{ b.thanh_pho }}</td>
+            <td class="operations">
+              <i class="fas fa-edit edit" (click)="onEditBusStation(b)"></i>
+              <!-- <i class="fas fa-trash-alt delete" (click)="onDeleteBusStation(b.id)"></i> -->
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+    <button id="btn-add" (click)="onAddBusStation()">
+      <i class="fas fa-plus-circle"></i>
+      Thêm bến xe
+    </button>
+  </section>
+</section>
+<section class="bus-station" *ngIf="isShow && !isLoadStation">
+  <div class="account-header">
+    <div *ngIf="isAdd; else elseAdd" class="account-title">
+      <i class="fas fa-plus-circle"></i>
+      <span class="title-item">Thêm bến xe</span>
+    </div>
+    <ng-template #elseAdd>
+      <div class="account-title">
+        <i class="fas fa-user-edit"></i>
+        <span class="title-item">Chỉnh sửa bến xe</span>
+      </div>
+    </ng-template>
+  </div>
+  <hr />
+  <section>
+    <form [formGroup]="busStationForm" (ngSubmit)="onSubmit()">
+      <section id="station-form">
+        <div class="form-group">
+          <div class="station-item">
+            <label>Thành phố <span class="delete"> (*) </span>: </label>
+            <div *ngIf="isAdd; else elseAddCity">
+              <input
+              type="text"
+              formControlName="city"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid':
+                  isSubmit && busStationForm.controls.city.errors
+              }"
+              />
+              <div
+                *ngIf="isSubmit && busStationForm.controls.city.errors"
+              >
+                <div 
+                  *ngIf="busStationForm.controls.city?.errors?.required"
+                  class="notify"
+                >
+                  * Thành phố không được bỏ trống
+                </div>
+              </div>
+            </div>
+            <ng-template #elseAddCity>
+              <input
+              type="text"
+              formControlName="city"
+              class="form-control"
+              readonly
+              />
+            </ng-template>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="station-item">
+            <label>Tên <span class="delete"> (*) </span>: </label>
+            <input
+              type="text"
+              formControlName="busStationName"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid':
+                  isSubmit && busStationForm.controls.busStationName.errors
+              }"
+            />
+            <div
+              *ngIf="isSubmit && busStationForm.controls.busStationName.errors"
+            >
+              <div 
+                *ngIf="busStationForm.controls.busStationName?.errors?.required"
+                class="notify"
+              >
+                * Tên bến không được bỏ trống
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group address">
+          <div class="station-item">
+            <label>Địa chỉ <span class="delete"> (*) </span>: </label>
+            <input
+              type="text"
+              formControlName="address"
+              class="form-control input-address"
+              [ngClass]="{
+                'is-invalid':
+                  isSubmit && busStationForm.controls.address.errors
+              }"
+            />
+            <div
+              *ngIf="isSubmit && busStationForm.controls.address.errors"
+            >
+              <div 
+                *ngIf="busStationForm.controls.address?.errors?.required"
+                class="notify"
+              >
+                * Địa chỉ bến không được bỏ trống
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="station-form">
+        <div class="form-group station-img">
+          <div class="station-item">
+            <label>Hình ảnh : </label>
+            <input
+              type="file" 
+              accept="image/*" 
+              capture="camera" 
+              (change)="imgeChanged($event)"
+            />
+            <div *ngIf="srcImage!=''">
+              <img [src]="srcImage">
+            </div>
+          </div>
+        </div>
+      </section>
+      <button type="submit" id="btn-save">Lưu</button>
+    </form>
+  </section>
+</section>
+<div style="margin-top:50px">
+  <app-loading *ngIf="isLoadStation"></app-loading>
+</div>

@@ -1,0 +1,34 @@
+<section>
+    <div style="display: flex;">
+        <h2 class="title" style="width: 90%;">THANH TOÁN QUA ZALO PAY</h2>
+        <button style="text-align: right; width: 10%;" (click)="onClose()"><i class="far fa-times-circle"></i></button>
+    </div>
+    <div class="pay-infor">
+        <label>Người mua: <span>{{inforCustomer.name}}</span></label>
+        <label>Số điện thoại: <span>{{inforCustomer.phone}}</span></label>
+    </div>
+    <hr style="width: 100%;"/>
+
+    <div class="pay-infor">
+        <label style="font-weight: bold; color: #ef5222;">Vé đi</label>
+    </div>
+    <div class="pay-infor">
+        <label>Tuyến đường: <span>{{inforRoute.departure.ben_toi}} ⇒ {{inforRoute.destination.ben_toi}}</span></label>
+        <label *ngIf="inforRoute.isOneWay; else elseTwoWay">Tổng tiền: <span style="font-weight: bold;">{{inforSeat.totalMoney}}<sup data-v-6f125f51="">₫</sup></span></label>
+        <ng-template #elseTwoWay>
+            <label >Tổng tiền: <span style="font-weight: bold;">{{tickets[0].totalMoney}}<sup data-v-6f125f51="">₫</sup></span></label>
+        </ng-template>
+    </div>
+    <div *ngIf="!inforRoute.isOneWay;">
+        <div class="pay-infor">
+            <label style="font-weight: bold; color: #ef5222;">Vé về</label>
+        </div>
+        <div class="pay-infor">
+            <label>Tuyến đường: <span>{{inforRoute.destination.ben_toi}} ⇒ {{inforRoute.departure.ben_toi}}</span></label>
+            <label >Tổng tiền: <span style="font-weight: bold;">{{tickets[1].totalMoney}}<sup data-v-6f125f51="">₫</sup></span></label>
+        </div>
+    </div>
+
+    <hr style="width: 100%;margin-bottom: 20px;"/>
+    <button id="btn-payment" (click)="onZaloPay()">Thanh Toán</button>
+</section>

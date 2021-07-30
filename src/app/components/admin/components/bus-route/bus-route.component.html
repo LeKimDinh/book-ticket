@@ -1,0 +1,318 @@
+<div *ngIf="isLoading;">
+  <app-loading></app-loading>
+</div>
+<div *ngIf="!isLoading;">
+
+  <section class="bus-station">
+    <div>
+      <h2 class="title station-title">
+        Biểu đồ thể hiện doanh thu của tuyến {{ year }}
+      </h2>
+    </div>
+    <section class="chart" *ngIf="!isLoad">
+      <div class="chart-model">
+        <div>
+          <div style="display: block">
+            <canvas
+              baseChart
+              [datasets]="lineChartData"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="lineChartLegend"
+              [chartType]="lineChartType"
+              [plugins]="lineChartPlugins"
+            >
+            </canvas>
+          </div>
+        </div>
+      </div>
+      <div class="chart-infor">
+        <p class="label-blod">
+          Doanh thu năm <span class="bold">{{ year }}</span>
+        </p>
+        <p class="label-blod">
+          của tuyến
+          <select
+            name="router"
+            class="bold"
+            id="router"
+            [(ngModel)]="busRouterId"
+            (change)="onChangeBusRouter($event.target)"
+          >
+            <option
+              *ngFor="let busRouter of busesRouter"
+              value="{{ busRouter.id }}"
+            >
+              {{ busRouter.ben_xe_di }} ⇒ {{ busRouter.ben_xe_toi }}
+            </option>
+          </select>
+        </p>
+        <p class="label-blod">
+          {{amount}} <sup class="bold"> VNĐ </sup>
+          <i class="fas fa-money-check-alt"></i>
+        </p>
+        <p class="label-blod">
+          {{ticket}} <sup class="bold"> Vé </sup>
+          <i class="fas fa-clipboard-list"></i>
+        </p>
+        <div id="select-year">
+          <button id="previous-year" class="btn-year" (click)="onPreviousYear()">
+            <i class="fas fa-angle-double-left"></i>
+            Năm trước
+          </button>
+          <button id="next-year" class="btn-year" (click)="onNextYear()">
+            Năm sau
+            <i class="fas fa-angle-double-right"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+    <app-loading *ngIf="isLoad"></app-loading>
+  </section>
+  <section class="bus-station" *ngIf="!isLoad">
+    <div class="account-header">
+      <div class="account-title">
+        <i class="fas fa-link"></i>
+        <span class="title-item">Quản lý xe các tuyến</span>
+      </div>
+      <div id="search-bus-station">
+        <input
+          class="input-search"
+          type="text"
+          placeholder="Tên thành phố đi"
+          [(ngModel)]="inputSearch"
+        />
+        <div>
+          <button (click)="onSearch(inputSearch)" id="btn-search">
+            Tìm Kiếm
+          </button>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <section id="accounts">
+      <table class="table-scroll small-first-col">
+        <thead>
+          <tr>
+            <th style="flex-basis: 90%">Tuyến xe</th>
+            <th>Khoảng cách</th>
+            <th>Khoảng thời gian</th>
+            <th>Giá cả</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody class="body-half-screen">
+          <ng-container *ngFor="let busRouter of busesRouter;">
+            <tr>
+              <td style="flex-basis: 90%">
+                {{ busRouter.ben_xe_di }} ⇒ {{ busRouter.ben_xe_toi }}
+              </td>
+              <td>{{ busRouter.khoang_cach }} km</td>
+              <td>{{ busRouter.khoang_thoi_gian }} h</td>
+              <td>{{ busRouter.gia_ca }} <sup>vnd/vé</sup></td>
+              <td class="operations">
+                <i
+                  class="fas fa-edit edit"
+                  (click)="onEditBusRoute(busRouter)"
+                ></i>
+                <i 
+                  *ngIf="busRouter.trang_thai == 0 ||  busRouter.trang_thai == 2; else elseBan"  
+                  class="fas fa-bell-slash"
+                  style="color: #ef5222"
+                  (click)="onShowBanRouter(busRouter)"
+                  >
+                </i>
+                <ng-template #elseBan >
+                  <i class="fas fa-bell" style="color: #ef5222"
+                  (click)="onShowBanRouter(busRouter)">
+                </i>
+                </ng-template>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+      <button id="btn-add" (click)="onAddBusRoute()">
+        <i class="fas fa-plus-circle"></i>
+        Thêm tuyến xe
+      </button>
+    </section>
+  </section>
+  <section class="bus-station" *ngIf="isShow || isNotify">
+    <div class="account-header">
+      <div 
+        *ngIf="isNotify; else elseNotify"
+        >
+        <div>
+          <i 
+          class="fas fa-bell-slash"
+            >
+        </i>
+        <span>Chặn tuyến xe</span>
+        </div>
+        
+      </div>
+      <ng-template #elseNotify>
+        <div *ngIf="isAdd; else elseAdd" class="account-title">
+          <i class="fas fa-plus-circle"></i>
+          <span class="title-item">Thêm tuyến xe</span>
+        </div>
+        <ng-template #elseAdd>
+          <div class="account-title">
+            <i class="fas fa-edit"></i>
+            <span class="title-item">Chỉnh sửa tuyến xe</span>
+          </div>
+        </ng-template>
+      </ng-template>
+    </div>
+    <hr />
+    <section>
+      <form [formGroup]="busRouterForm" (ngSubmit)="onSave()">
+        <section id="account-form">
+          <div class="form-group">
+            <div class="account-item">
+              <label>Tỉnh đi <span class="delete"> <sup></sup> (*) </span>:
+              </label>
+              <select
+                class="form-control"
+                formControlName="departureId"
+                style="width: 100%"
+                required
+                (change)="onChangeDeparture($event.target)"
+                *ngIf="!isLoadDestination"
+              >
+                <ng-container *ngFor="let b of busesDepartureStation;">
+                  <option value="{{ b.id }}">
+                    {{ b.thanh_pho }}
+                  </option>
+                </ng-container>
+              </select>
+              <app-loading style="width: 100%" *ngIf="isLoadDestination"></app-loading>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="account-item">
+              <label>Tỉnh tới <span class="delete"> <sup></sup> (*) </span>:
+              </label>
+              <select
+                class="form-control"
+                style="width: 100%"
+                required
+                (change)="onChangeDestination($event.target)"
+                *ngIf="!isLoadDestination"
+              >
+                <ng-container *ngFor="let busDestination of busesDestinationStation">
+                  <option value="{{ busDestination.id }}">
+                    {{ busDestination.ben_toi }}                   
+                    {{ busDestination.ten_ben }}
+                  </option>
+                </ng-container>
+              </select>
+              <app-loading style="width: 100%" *ngIf="isLoadDestination"></app-loading>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="account-item">
+              <label
+                >Khoảng cách <span class="delete"> <sup>km</sup> (*) </span>:
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                style="width: 100%"
+                formControlName="range"
+                required
+                [readonly]="isNotify"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="account-item-time">
+              <label
+                >Khoảng thời gian <span class="delete"> <sup>h</sup> (*) </span>:
+              </label>
+              <input
+                type="number"
+                min="0"
+                class="form-control"
+                style="width: 30%"
+                required
+                formControlName="hour"
+                [readonly]="isNotify"
+              />
+              <span class="span-time"> h : </span>
+              <input
+                type="number"
+                max="60"
+                min="0"
+                class="form-control"
+                style="width: 30%"
+                required
+                formControlName="minute"
+                [readonly]="isNotify"
+              />
+              <span class="span-time"> m</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="account-item">
+              <label
+                >Giá vé <span class="delete"> <sup>vnđ</sup> (*) </span>:
+              </label>
+              <input
+                type="number"
+                min="0"
+                class="form-control"
+                style="width: 100%"
+                required
+                [readonly]="isNotify"
+                formControlName="price"
+              />
+            </div>
+          </div>
+        </section>
+        <section *ngIf="isNotify" id="notify-container">
+          <div class="form-group">
+            <div>
+              <input type="radio" 
+              name="notify-type" 
+              checked
+              (click)="onBanType(false)"
+              > 
+              Cấm đến khi mở lại
+            </div>
+          </div>
+          <div class="form-group" style="display: flex; justify-content: space-between; width: 100%;">
+            <div style="width: 15%;">
+              <input type="radio" 
+              name="notify-type"
+              (click)="onBanType(true)"
+              > 
+              Cấm trong 1 khoảng 
+            </div>
+            <div *ngIf="isBanForTime" style="width: 15%;">
+            Từ : <input type="date" min="{{date}}" value="{{fromDate}}" (change)="onChangeFromDate($event.target)">
+            </div>
+            <div *ngIf="isBanForTime" style="width: 15%;">
+            Đến : <input type="date" min="{{fromDate}}" value="{{toDate}}" (change)="onChangeToDate($event.target)">
+            </div>
+            <div *ngIf="isBanForTime" style="width: 15%;"></div>
+            <div *ngIf="isBanForTime" style="width: 15%;"></div>
+          </div>
+        </section>
+        <button *ngIf="!isNotify; else elseNotifyBTN" type="submit" id="btn-save">
+          <i class="fas fa-save"></i> 
+          Lưu
+        </button>
+        <ng-template #elseNotifyBTN>
+          <button type="submit" id="btn-save">
+            Cấm
+          </button>
+        </ng-template>
+      </form>
+    </section>
+  </section>
+  <section #someElement></section>
+</div>
+

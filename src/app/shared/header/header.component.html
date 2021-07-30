@@ -1,0 +1,145 @@
+<nav style="box-shadow: 10px 15px 20px rgba(0, 0, 0, 0.1)">
+  <div class="nav-top">
+    <div
+      class="container"
+      style="display: flex; justify-content: space-between"
+    >
+      <div style="padding: 5px 0px">
+        <label for=""><i class="fas fa-phone"></i> 0123456789</label>
+        <label>        
+          <a style="color: white;" href="mailto:{{email}}"><i class="fas fa-envelope"> lekimdinh@gmail.com</i></a>
+        </label>
+      </div>
+      <div class="logIn-user">
+        <button
+          *ngIf="!logInSuccess"
+          style="width: auto; margin-right: 1rem; color: white"
+          (click)="onLogIn()"
+        >
+          <i class="fas fa-sign-in-alt"></i> Đăng Nhập
+        </button>
+        <button
+          *ngIf="logInSuccess"
+          style="width: auto; margin-right: 1rem; color: white"
+          (click)="onShowMenuUser()"
+        >
+          <i class="fas fa-user-circle"></i> {{ customer.ten_khach_hang }}
+        </button>
+        <div id="infor-user" class="infor-user">
+          <div class="infor-user-icon">
+            <i class="fas fa-user-circle"></i>
+          </div>
+          <div>
+            <h2>{{ this.customer.ten_khach_hang }}</h2>
+          </div>
+          <div>
+            <ul>
+              <li (click)="onTicketBookingHistory()">
+                <i class="fas fa-history"></i> Lịch sử đặt vé
+              </li>
+              <li (click)="onInforIndividual()">
+                <i class="fas fa-user-circle"></i> Thông tin cá nhân
+              </li>
+              <li (click)="onInforAccount()">
+                <i class="fas fa-id-badge"></i> Tài khoản ID
+              </li>
+              <li (click)="onAwardPoint()">
+                <i class="fas fa-gift"></i>Điểm thưởng
+              </li>
+              <li *ngIf="isAdmin" (click)="onDashboard()">
+                <i class="fas fa-bars"></i>Dashboard
+              </li>
+              <li
+                style="
+                  border-bottom-left-radius: 10px;
+                  border-bottom-right-radius: 10px;
+                "
+                (click)="onLogOut()"
+              >
+                <i class="fas fa-sign-out-alt"></i> Đăng xuất
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nav container">
+    <div class="nav-menu flex-row">
+      <div class="nav-brand">
+        <a class="logo" [routerLink]="['']">Transportation Services</a>
+      </div>
+      <div class="toogle-collapse">
+        <div class="toogle-icons">
+          <i class="fas fa-bars" (click)="onClick()"></i>
+        </div>
+      </div>
+      <div id="people">
+        <ul class="nav-items">
+          <li class="nav-link" *ngIf="index == 0">
+            <a [routerLink]="['']"
+              ><div class="item-label pick">Trang chủ</div></a
+            >
+          </li>
+          <li class="nav-link" *ngIf="index != 0">
+            <a [routerLink]="['']"><div class="item-label">Trang chủ</div></a>
+          </li>
+          <li class="nav-link" *ngIf="index == 1">
+            <a [routerLink]="['/schedule']"
+              ><div class="item-label pick">Lịch trình</div></a
+            >
+          </li>
+          <li class="nav-link" *ngIf="index != 1">
+            <a [routerLink]="['/schedule']"
+              ><div class="item-label">Lịch trình</div></a
+            >
+          </li>
+          <li class="nav-link" *ngIf="index == 2">
+            <a [routerLink]="['/policy']"
+              ><div class="item-label pick">Điều khoản</div></a
+            >
+          </li>
+          <li class="nav-link" *ngIf="index != 2">
+            <a [routerLink]="['/policy']"
+              ><div class="item-label">Điều khoản</div></a
+            >
+          </li>
+
+          <li class="nav-link" *ngIf="index == 3">
+            <a [routerLink]="['/invoice']"
+              ><div class="item-label pick">Hóa đơn</div></a
+            >
+          </li>
+          <li class="nav-link" *ngIf="index != 3">
+            <a [routerLink]="['/invoice']"
+              ><div class="item-label">Hóa đơn</div></a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div id="myModal" class="modal">
+    <div class="modal-form">
+      <div  style="float: right">
+        <button (click)="onClose()"><i class="far fa-times-circle"></i></button>
+      </div>
+      <div class="form">
+        <app-login
+          *ngIf="!signUp"
+          (signUp)="onGoSignUp($event)"
+          (logInSuccess)="onLogInSucess($event)"
+        ></app-login>
+        <app-signup
+          *ngIf="signUp"
+          (backToLogIn)="onBackToLogIn($event)"
+        ></app-signup>
+      </div>
+    </div>
+  </div>
+</nav>
+<div id="waiting" class="modal">
+  <div id="waitting">
+    <app-loading></app-loading>
+  </div>
+</div>

@@ -1,0 +1,64 @@
+.account-container{
+    width: 100%; 
+    padding: 0.2rem;
+    margin-bottom: 1.5rem;
+    border-radius: 10px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    min-height: 600px;
+}
+
+.account-header{
+    display: flex;
+    justify-content: space-between;
+    margin: 1.5rem 1rem;
+}
+
+.account-header i{
+    font-size: 56px;
+    margin-right: 0.5rem;
+    color: #00613d;
+}
+
+.notify{
+    color: #ef5222;
+    font-weight: bold;
+}
+
+label{
+    font-size: 24px;
+}
+
+
+table{
+    width: 98%;
+    margin: 0.5rem auto;
+
+    border-collapse: collapse;
+}
+
+table tr th{
+    background-color: #00613d;
+    color: white;
+    
+}
+
+table tr:hover{
+    cursor: pointer;
+}
+
+.old{
+    background-color: #fff7f5;
+    color: #ef5222;
+}
+
+table tr th, td{
+    text-align: center;
+    padding: 0.5rem;
+}
+
+#btn-add, #btn-save{
+    background: #00613d;
+    margin: 0.5rem;
+    color: white;
+    border-radius: 20px;
+}

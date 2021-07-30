@@ -1,0 +1,171 @@
+h2{
+    text-transform: uppercase;
+}
+
+.title{
+    text-align: left;
+}
+
+.infor-login-container{
+    margin: 20px auto;
+    width: 95%;
+    height: 350px;
+}
+
+.infor-login-container .infor-login{
+    width: 40%;
+    height: 200px;
+    float: left;
+    margin-left: 0rem;
+}
+
+.infor-login-container .title{
+    text-align: left;
+    padding: 10px;
+    background: #009344;
+    font-size: 18px;
+    text-transform: uppercase;
+    color: white;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.infor-login-container .infor-login p{
+    margin-top: 1rem;
+}
+
+.infor-login-container .infor-login .infor-login-left{
+    float: left;
+    height: 100px;
+    width: 60%;
+
+}
+
+.infor-login-container .infor-login .infor-login-right{
+    float: right;
+    height: 100px;
+    width: 30%;
+
+}
+
+.infor-login-container .infor-login .infor-login-right .edit-password:hover{
+    cursor: pointer;
+}
+
+.infor-login-container .infor-login .infor-login-left .item-left{
+    float: left;
+    width: 30%;
+    height: 100px;
+}
+
+/* .infor-login-container .infor-login .infor-login-left .item-left p{
+    color: black;
+    margin: 10px 0px;
+    font-size: 18px;
+    text-align: left;
+    font-weight: bold;  
+} */
+
+
+.infor-login-container .infor-login .infor-login-left .item-right{
+    float: left;
+    width: 65%;
+    height: 100px;
+ 
+}
+
+.infor-login-container .infor-login /* .infor-login-left */ p{
+    text-align: left;
+    font-size: 14px;
+  
+}
+
+.infor-login-container .infor-login .infor-login-right p{
+    text-align: right;
+    color: #EF5222;
+}
+
+.infor-login-container .edit-infor-login{
+    float: right;
+    width: 55%;
+    height: 200px;
+}
+
+.infor-login-container .edit-infor-login .edit-infor{
+    width: 100%;
+}
+
+.infor-login-container .edit-infor-login .edit-infor .infor-item{
+    padding: 30px 0px 0px 0px;
+    width: 100%;
+    display: flex;
+}
+
+.infor-login-container .edit-infor-login .edit-infor p{
+    color: black;
+    margin: 10px 0px;
+    font-size: 18px;
+    width: 40%;
+    text-align: left;
+    font-weight: bold;    
+}
+
+.infor-login-container .edit-infor-login .edit-infor i{
+    margin-top: 15px;
+}
+
+.infor-login-container .edit-infor-login .edit-infor p:hover{
+    cursor: pointer;
+}
+
+.infor-login-container .edit-infor-login .edit-infor input{
+    width: 100%;
+    font-size: 16px;
+    border: none;
+    border-bottom: 1px solid rgb(121, 116, 116);
+    outline: none;
+    padding: 10px 0px;
+    margin: 0px 20px;
+}
+
+.infor-login-container .edit-infor-login .edit-infor .infor-item .btn-infor-item{
+    border: 1px solid;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 16px;
+    background: #EF5222;
+    color: white;
+}
+
+.infor-login-container .edit-infor-login .edit-infor .infor-item .btn-infor-item:hover{
+    cursor: pointer;
+}
+
+.show-edit-infor{
+    display: none;
+}
+
+i:hover{
+    cursor: pointer;
+}
+
+#notify{
+    color: #EF5222;
+    margin: 0px;
+    margin-left: 25%;
+    font-size: 14px;
+    
+}
+
+#btn-disable:hover{
+    cursor: no-drop;
+}
+
+/* .item-title{
+    width: 100%;
+    font-size: 16px;
+    border: none;
+    border-bottom: 1px solid rgb(121, 116, 116);
+    outline: none;
+    padding: 10px 0px;
+    margin: 0px 20px;
+} */

@@ -1,0 +1,230 @@
+.container-left{
+    width: 40%;
+    margin: 20px 0px 20px 0px;
+}
+
+.container-left .content-address{
+    border:1px solid #dddddd;
+    background: #f6f6f6;
+    border-radius: 10px;
+}
+
+h2{
+    text-align: center;
+
+    color: #ef5222;
+    padding: 3%;
+}   
+
+p{
+
+    padding: 2%;
+}
+
+.title{
+    text-align: center;
+    font-weight: bold;
+}
+
+label{
+    
+    color: #686464;
+    text-align: left;
+    margin-left: 20px;
+    padding: 0% 2%;
+
+}
+
+.container-left  .select-station {
+    padding: 0% 2%;
+    font-weight: bold;
+}
+
+.container-left  .select-station span{
+    margin-right: 20px;
+    float: right;
+    color: #ef5222; 
+    font-weight: bold;
+}
+
+
+.container-left  .select-station select{
+    margin-left: 20px;
+    width: 90%;
+    
+    padding: 5px;
+    border-radius: 10px;
+    border: none;
+    color: #585454;
+    outline: none;
+
+}
+
+.container-right{
+    width: 59%;
+    border:1px solid #dddddd;
+    background: #f6f6f6;
+    margin: 20px 0;
+    border-radius: 10px;
+}
+
+.floor-seat .active{
+    border: 1px solid #cbe2f3;
+    background-color: #eff9ff;
+    cursor: pointer;
+}
+
+.floor-seat .select{
+    border: 1px solid #e05c30;
+    background-color: #e05c30;
+    color: white;
+}
+
+.notification p{
+    text-align: center;
+    color: #e05c30;
+    text-transform: uppercase;
+}
+
+.disable{
+    border: 1px solid #696b6d;
+    background-color: #696b6d;
+}
+
+.disable button:hover{
+    cursor: no-drop;
+}
+
+#none{
+    border: none; 
+    background: none;
+}
+
+/*  */
+.note{
+    display: flex;
+    justify-content: center;
+    
+}
+
+.note .note-content{
+    padding: 30px 0px;
+    font-weight: bold;
+    width: 35%;
+}
+
+.note .note-content input{
+    width: 15px;
+    height: 15px;
+    border-radius:  3px;
+}
+
+.selected-seat, .total{
+    width: 50%;
+    font-weight: bold;
+    padding: 3%;
+}
+
+.total{
+    text-align: right;
+}
+
+.total span{
+    color: #ef5222;
+    font-weight: bold;
+}
+.f1{    
+    border: 0.5px solid rgb(230, 224, 224);
+    border-radius: 10px;
+    width: 70%;
+    margin: 0px auto;
+}
+
+.floor-1, .floor-2{
+    border: 0.5px solid rgb(230, 224, 224);
+    border-radius: 10px;
+    width: 47%;
+}
+
+.floor-2{
+    margin-right: 10px;
+}
+.floor-1{
+    margin-left: 10px;
+}
+
+.left{
+    margin-left: 25%;
+}
+
+.right{
+    margin-right: 25%;
+}
+
+td{
+    width: 15%;
+    text-align: center;
+    height: 38px;
+}
+
+td button{
+    width: 100%;
+    height: 50px;
+}
+
+.disable{
+    border: 1px solid #95989b;
+    background-color: #696b6d;
+    cursor: pointer;
+    color: white;
+    border-radius: 5px;
+}
+
+.activety{
+    border: 1px solid #cbe2f3;
+    background-color: #eff9ff;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.select{
+    border: 1px solid #e05c30;
+    background-color: #e05c30;
+    border-radius: 5px;
+}
+
+.select button{
+    color: white;
+}
+
+.note h2{
+    text-align: center;
+    color: #ef5222;
+    padding: 3%;
+}   
+
+.note p{
+    padding: 2%;
+}
+
+.note .title{
+    text-align: center;
+    font-weight: bold;
+}
+
+.note label{
+    color: #686464;
+    text-align: left;
+    margin-left: 20px;
+    padding: 0% 2%;
+}
+
+#banRouter{
+    outline: none;
+    color: #ef5222;
+    border: none;
+    border-bottom: 1px solid #ef5222;
+    text-align: center;
+    background-color: #f6f6f6;
+    font-weight: bold;
+}

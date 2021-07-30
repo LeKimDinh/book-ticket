@@ -1,0 +1,164 @@
+<app-header [index]="0"></app-header>
+<div class="container">
+  <form [formGroup]="busForm" class="form-search-route">
+    <div style="margin-bottom: 10px">
+      <input type="radio" name="type" (click)="onCheckTyeCheck(true)" checked />
+      <label for="">Một chiều</label>
+      <input type="radio" name="type" (click)="onCheckTyeCheck(false)" />
+      <label for="">Khứ hồi</label>
+    </div>
+    <div class="booking-select-box-container">
+      <div class="place-select-container">
+        <div class="auto-complete-place-container">
+          <label for="" class="title" style="text-align: center">Điểm đi</label>
+          <input
+            type="text"
+            class="select-place"
+            placeholder="Chọn nơi đi"
+            formControlName="departure"
+            (click)="setSelectionRange(0)"
+            (keyup)="onSelectDateOrigin($event.target, 0)"
+            spellcheck="true"
+          />
+          <div class="data-list-container hide">
+            <ul class="place-list" *ngIf="listSearchToGo.length == 0">
+              <li class="place-list-item" *ngFor="let i of busStations">
+                <button
+                  class="select-place-item list-item"
+                  (click)="onSelect(i, 0)"
+                >
+                  {{ i.ben_toi }}
+                  <span class="item-code">({{ i.ben_toi }})</span>
+                </button>
+              </li>
+            </ul>
+            <ul class="place-list" *ngIf="listSearchToGo.length != 0">
+              <li class="place-list-item" *ngFor="let i of listSearchToGo">
+                <button
+                  class="select-place-item list-item"
+                  (click)="onSelect(i, 0)"
+                >
+                  {{ i.ben_toi }}
+                  <span class="item-code">({{ i.ben_toi }})</span>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="auto-complete-place-container">
+          <label for="" class="title" style="text-align: center"
+            >Điểm đến</label
+          >
+          <input
+            type="text"
+            class="select-place"
+            formControlName="destination"
+            placeholder="Chọn nơi đến"
+            (click)="setSelectionRange(1)"
+            (keyup)="onSelectDateOrigin($event.target, 1)"
+            spellcheck="true"
+          />
+          <div class="data-list-container hide">
+            <app-loading *ngIf="isLoad"></app-loading>
+            <ul class="place-list" *ngIf="listSearchToDestination.length == 0 && !isLoad">
+              <li class="place-list-item" *ngFor="let i of busStationsByID">
+                <button
+                  class="select-place-item list-item"
+                  (click)="onSelect(i, 1)"
+                >
+                  {{ i.ben_toi }}
+                  <span class="item-code">({{ i.ben_toi }})</span>
+                </button>
+              </li>
+            </ul>
+            <ul class="place-list" *ngIf="listSearchToDestination.length != 0 && !isLoad">
+              <li
+                class="place-list-item"
+                *ngFor="let i of listSearchToDestination"
+              >
+                <button
+                  class="select-place-item list-item"
+                  (click)="onSelect(i, 1)"
+                >
+                  {{ i.ben_toi }}
+                  <span class="item-code">({{ i.ben_toi }})</span>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="date-select-container">
+        <div class="dateSelectContainer select-from-date">
+          <label for="" class="title" style="text-align: center">Ngày đi</label>
+          <div class="controls">
+            <div
+              class="vue-daterange-picker"
+              style="width: 100%; margin-top: 1%"
+            >
+              <input
+                type="date"
+                id="go-date"
+                [min]="today"
+                formControlName="dateGo"
+                (change)="dateChange($event.target, 0)"
+                style="width: 80%; text-align: center; margin-left: 10%"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="dateSelectContainer select-to-date">
+          <label for="" class="title" style="text-align: center">Ngày về</label>
+          <div class="controls">
+            <div
+              class="vue-daterange-picker"
+              style="width: 100%; padding-left: 3%; margin-top: 1%"
+            >
+              <input
+                type="date"
+                id="return-date"
+                [min]="returnDay"
+                formControlName="dateReturn"
+                (change)="dateChange($event.target, 1)"
+                [readonly]="isDisableReturnDate"
+                style="width: 80%; text-align: center; margin-left: 10%"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <button
+        type="submit"
+        name="search"
+        class="btn-search"
+        (click)="onSearch()"
+      >
+        <i class="fas fa-search"></i> TÌM CHUYẾN XE
+      </button>
+    </div>
+  </form>
+
+  <div class="route-input">
+    <div class="title">Thông tin chung</div>
+    <div class="route-infor">
+      <h2></h2>
+      <p>
+        Khoảng cách:
+        <span class="notify">{{ routerInfor.khoang_cach }} KM</span>
+      </p>
+      <p>
+        Thời gian:
+        <span class="notify">{{ routerInfor.khoang_thoi_gian }} h</span>
+      </p>
+      <p>
+        *Lưu ý: thời gian đón và trung chuyển xe có thể thay đổi phụ thuộc vào
+        mật độ giao thông tại từng thời điểm. Kính mong quý hành khách thông cảm
+        !
+      </p>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

@@ -1,0 +1,237 @@
+
+<section class="account-container" *ngIf="!isLoad">
+  <div class="account-header">
+    <div class="account-title">
+      <i class="fas fa-bus-alt"></i>
+      <span class="title-item">Quản lý xe</span>
+  </div>
+    <div id="search-bus-station">
+      <input
+        class="input-search"
+        type="text"
+        placeholder="Tên thành phố đi"
+        [(ngModel)]="search"
+      />
+      <div>
+        <button  id="btn-search" (click)="onSearch()">
+          Tìm Kiếm
+        </button>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <section id="accounts">
+    <table class="table-scroll small-first-col">
+      <thead>
+        <tr>
+          <th style="flex-basis: 95%">Tuyến</th>
+          <th>Hãng xe</th>
+          <th>Tên xe</th>
+          <th>Giờ chạy</th>
+          <th>Loại xe</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody class="body-half-screen">
+        <ng-container *ngFor="let bus of buses">
+          <tr>
+            <td style="flex-basis: 95%">
+              {{ bus.diem_di }} ⇒ {{ bus.diem_toi }}
+            </td>
+            <td>{{ bus.hangXe }}</td>
+            <td>{{ bus.tenXe }}</td>
+            <td>{{ bus.gioChay }} h</td>
+            <td>{{ bus.slotCount }} chỗ</td>
+            <td class="operations">
+              <i class="far fa-edit edit" (click)="onEditBus(bus)"></i>
+              <i *ngIf="!bus.block_forever" class="fas fa-ban delete" (click)="onBanBus(bus)"></i>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+
+    <button id="btn-add" (click)="onAdd()">
+      <i class="fas fa-plus-circle"></i> Thêm xe
+    </button>
+  </section>
+</section>
+<section class="account-container" *ngIf="isLoad">
+  <div style="margin-top:100px">
+    <app-loading></app-loading>
+  </div>
+</section>
+<section class="account-container" *ngIf="isShow">
+  <div class="account-header">
+    <div *ngIf="isAdd; else elseAdd" class="account-title">
+      <label>
+        <i class="fas fa-plus-circle"></i>
+        <span class="title-item">Thêm xe</span>
+      </label>
+    </div>
+    <ng-template #elseAdd>
+      <div *ngIf="isBan; else elseBan">
+        <div class="account-title">
+          <label>
+            <i class="fas fa-link"></i>
+            <span class="title-item">Chặn xe</span>
+          </label>
+        </div>
+      </div>
+      <ng-template #elseBan>
+        <div class="account-title">
+          <i class="fas fa-edit"></i>
+          <span class="title-item">Chỉnh sửa xe</span>
+        </div>
+      </ng-template>
+    </ng-template>
+  </div>
+  <hr />
+  <section>
+    <form [formGroup]="busForm">
+      <section id="account-form">
+        <div class="form-group" *ngIf="isBan">
+          <div class="account-item">
+            <label>Chọn ngày chặn <span class="notification">(*)</span></label>
+            <input
+              type="date"
+              min="{{ today }}"
+              value="{{ date }}"
+              (change)="onChangeDate($event.target)"
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="account-item">
+            <label>Bến đi <span class="notification">(*)</span></label>
+            <select
+              class="form-control"
+              name="destination"
+              id="destination"
+              style="width: 100%"
+              (change)="onChangeDeparture($event.target)"
+              *ngIf="!isLoadStation"
+            >
+              <ng-container *ngFor="let d of departures; let i = index">
+                <option *ngIf="i == 0" selected value="{{ d.id }}">
+                  {{ d.ben_toi }}
+                </option>
+                <option *ngIf="i != 0" value="{{ d.id }}">
+                  {{ d.ben_toi }}
+                </option>
+              </ng-container>
+            </select>
+            <app-loading *ngIf="isLoadStation"></app-loading>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="account-item">
+            <label>Bến tới <span class="notification">(*)</span></label>
+            <select
+              class="form-control"
+              name="destination"
+              id="destination"
+              style="width: 100%"
+              (change)="onChangeDestination($event.target)"
+              *ngIf="!isLoadStationDestination"
+            >
+              <ng-container *ngFor="let destination of destinations">
+                <option value="{{ destination.id }}">
+                  {{ destination.ben_toi }}
+                </option>
+              </ng-container>
+            </select>
+            <app-loading *ngIf="isLoadStationDestination"></app-loading>
+          </div>
+        </div>
+        <div class="form-group" *ngIf="!isBan">
+          <div class="account-item">
+            <label>Hãng xe <span class="notification">(*)</span></label>
+            <input
+              class="form-control"
+              style="width: 100%"
+              formControlName="busBrand"
+              required
+              [readonly]="isBan"
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="account-item">
+            <label>Tên xe <span class="notification">(*)</span></label>
+            <input
+              class="form-control"
+              style="width: 100%"
+              required
+              formControlName="busName"
+              [readonly]="isBan"
+            />
+          </div>
+        </div>
+        <div class="form-group" *ngIf="!isBan">
+          <div class="account-item">
+            <label>Giờ chạy <span class="notification">(*)</span></label>
+            <input
+              id="time"
+              name="time"
+              class="form-control"
+              style="width: 100%"
+              type="time"
+              required
+              formControlName="timeRun"
+              (change)="onChangeTime($event.target)"
+            />
+          </div>
+        </div>
+        <div class="form-group" *ngIf="isBan">
+          <div class="account-item">
+            <label>Giờ chạy <span class="notification">(*)</span></label>
+            <select
+              name="time"
+              id="time"
+              class="form-control"
+              style="width: 100%"
+              (change)="onChangeTime($event.target)"
+            >
+              <option *ngFor="let t of times" value="{{ t.giochay }}">
+                {{ t.giochay }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="account-item">
+            <label>Loại xe <span class="notification">(*)</span></label>
+          </div>
+          <select
+            class="form-control"
+            style="width: 100%"
+            required
+            [disabled]="isBan"
+            (change)="onChangeSeatType($event.target)"
+          >
+            <option *ngFor="let b of busTypes" value="{{b.slot_count}}">{{b.slot_count}} chỗ</option>
+          </select>
+        </div>
+      </section>
+      <button
+        *ngIf="!isBan"
+        type="submit"
+        id="btn-save"
+        (click)="onSave()"
+      >
+        <i class="fas fa-save"></i> 
+        Lưu
+      </button>
+      <button
+        *ngIf="isBan"
+        type="submit"
+        id="btn-save"
+        (click)="onBan()"
+      >
+        <i class="fas fa-ban"></i> 
+          Chặn
+      </button>
+    </form>
+  </section>
+</section>

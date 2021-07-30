@@ -1,0 +1,256 @@
+
+.form-search-route{
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    width: 96%;
+    padding: 24px;
+    margin: 2.5% 2% 2%;
+    position: relative;
+}
+
+input{
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+label{
+    margin-right: 20px;
+    font-weight: bold;
+}
+
+.form-search-route .booking-select-box-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.form-search-route .booking-select-box-container .place-select-container, .date-select-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+   
+}
+
+.place-select-container{
+    width: 50%;
+  
+}
+
+.date-select-container{
+    width: 50%;
+  
+}
+
+.auto-complete-place-container{
+    width: 100%;
+    padding: 10px 16px;
+    margin: auto auto 10px;
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+
+    border: 1px solid #dce1e6;
+    border-radius: 6px;
+    
+}
+
+.route-input .title{
+    background:#00603D;
+    width: 100%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    color:white;
+    text-align: center;
+    padding: 15px;
+    text-transform: uppercase;
+}
+
+.route-input{
+    width: 96%;
+    margin: 50px auto;
+    margin-left:2%;
+    margin-right: 2%;
+    border: 1px solid #dddddd;
+    border-radius: 10px;
+    position: relative;
+    height: 250px;
+}
+
+.route-infor h2{
+    color: #F2754E;
+    padding:10px;
+    text-align: left;
+}
+
+.route-infor p{
+    padding-left: 10px;
+    font-size: 18px;
+    text-align: left;
+}
+
+.title{
+    display: inline-block;
+
+    width: 100%;
+    color: #637280;
+}
+
+.select-place{
+    color: #111;
+
+    border: none;
+
+    background: none;
+    text-overflow: ellipsis;
+    outline: none;
+
+    width: 100%;
+    padding: 5px;
+
+
+    text-align: center;
+}
+
+.date-select-container{
+    padding: 10px;
+    border: 1px solid #dce1e6;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+
+.data-list-container{
+    font-size: 16px;
+    flex-direction: column;
+    position: absolute;
+    top: 105%;
+    left: 0;
+    background: #fff;
+    border: none;
+    z-index: 10000;
+    width: 100%;
+    height: 200px;
+    overflow-y: scroll;
+    box-shadow: 0 10px 60px rgb(0 0 0 / 30%);
+    border-radius: 6px;
+}
+
+.place-list{
+    padding: 0;
+    margin: 0;
+}
+
+.place-list-item{
+    list-style: none;
+    font-weight: bold;
+}
+
+
+.list-item{
+    background: none;
+    text-overflow: ellipsis;
+
+    width: 100%;
+    padding: 10px;
+
+   
+    font-weight: 700px;
+
+    text-align: left;
+
+    border: none;
+    border-bottom: 1px solid rgba(0,0,0,.1);
+
+    color: #404040;
+}
+
+
+
+.dateSelectContainer{
+    max-width: 400px;
+    display: flex;
+    width: inherit;
+    margin: auto 1px solid #dce1e6;
+    flex-direction: column;
+    white-space: nowrap;
+}
+
+.select-from-date{
+    padding-right: 5px;
+    border-right: 1px solid #dce1e6;
+}
+
+.controls{
+    height: 36px;
+    border-radius: 8px;
+    margin-top: 5px;
+    display: flex;
+    position: relative;
+}
+
+.vue-daterange-picker{
+    position: relative;
+    display: inline-block;
+    min-width: 60px;
+}
+
+.vue-daterange-picker input{
+    border:0.5px solid rgb(228, 224, 215);
+}
+
+.form-control{
+    display: block;
+   
+    line-height: 1.42857143;
+    color: #555;
+    height: 34px;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.reportrange-text{
+    background: #fff;
+    cursor: pointer;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+i, b{
+    margin-top: 5px;
+}
+
+b{
+    margin-top: 8px;
+}
+
+.form-search-route .btn-search{
+    color: #ffffff !important;
+    background-color: #ef5222;
+
+    position: absolute;
+    right: 3%;
+    top: 89%;
+
+    border-radius: 20px;
+}
+
+
+.hide{
+
+    display: none;
+}
+
+.show{
+    display: initial;
+}
+
+.notify{
+    color: #ef5222;
+}

@@ -1,0 +1,89 @@
+<section class="account-container">
+  <div class="account-header">
+    <div class="account-title">
+      <label>
+        <i class="fas fa-file-export"></i>
+        Danh sách các tuyến chạy trong ngày
+        <span> <input 
+          class="notify" 
+          type="date"
+          value="{{date}}"
+          (change)="onChangeDate($event.target)"
+          > 
+        </span>
+      </label>
+    </div>
+  </div>
+  <hr />
+  <div>
+    <table *ngIf="!isLoad">
+      <tr>
+        <th>Tuyến</th>
+        <th>Giờ chạy</th>
+        <th>Số lượng vé</th>
+        <th></th>
+      </tr>
+      <ng-container *ngFor="let bus of busRouterForExport">
+        <tr>
+          <td>{{bus.tuyen_xe_name}}</td>
+          <td>{{bus.gio_chay}}</td>
+          <td>{{bus.so_luong_ve}}</td>
+          <td class="operations" (click)="onDetail(bus)">
+            <i class="fas fa-info-circle"></i>
+          </td>
+        </tr>
+      </ng-container>
+    </table>
+  </div>
+  <app-loading *ngIf="isLoad || isLoadDetail"></app-loading>
+</section>
+<section
+  *ngIf="isDetail"
+  class="account-container"
+>
+    <section id="router-infor-detail" *ngIf="!isLoadDetail">
+        <div class="account-header" >
+            <div class="account-title">
+            <label style="display: block;">
+                Danh sách thông tin chi tiết người đi tuyến 
+                <span  style="color: #ef5222;font-weight: bold;">{{busRouterDetail.tuyen_xe_name}}</span> ngày 
+                <span style="color: #ef5222;font-weight: bold;"> {{ date }} </span> lúc
+                <span style="color: #ef5222;font-weight: bold;"> {{busRouterDetail.gio_chay}} h</span>
+            </label>
+            <label>
+                Tổng vé: 
+                <span style="color: #ef5222;font-weight: bold;">{{busRouterDetail.so_luong_ve}} <sup>vé</sup> </span>
+            </label>
+            </div>
+        </div>
+        <hr>
+        <div>
+            <table style="width:100%" #htmlData>
+              <tr>
+                <th style="text-align: center;">STT</th>
+                <th style="text-align: center;">Tên Khách</th>
+                <th style="text-align: center;">Số Điện Thoại</th>
+                <th style="text-align: center;">Số lượng vé</th>
+                <th style="text-align: center;">Ghế</th>
+              </tr>
+              <ng-container *ngFor="let customer of customers; let i = index">
+                <tr>
+                  <td style="text-align: center;">{{i}}</td>
+                  <td style="text-align: center;">{{customer.ten_khach_hang}}</td>
+                  <td style="text-align: center;">{{customer.so_dien_thoai}}</td>
+                  <td style="text-align: center;">{{customer.vi_tri_giuong.length}} <sup>vé</sup> </td>
+                  <td style="text-align: center;">
+                    <ng-container *ngFor="let vt of customer.vi_tri_giuong">
+                      <span>{{vt.stt}} </span>
+                    </ng-container>
+                  </td>
+                </tr>
+              </ng-container>
+            </table>
+        </div>
+    </section>
+    <div *ngIf="isExport">
+      <button id="btn-add" (click)="onExportPDFFile()"><i class="fas fa-print"></i> Print file</button>
+      <button id="btn-add" (click)="onExportExcelFile()"><i class="far fa-file-excel"></i> Export excel file</button>  
+    </div>
+</section>

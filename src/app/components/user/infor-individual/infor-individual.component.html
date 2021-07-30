@@ -1,0 +1,83 @@
+<app-header [index]=-1></app-header>
+
+<section class="container">
+    <app-loading *ngIf="isLoad"></app-loading>
+    <div *ngIf="!isLoad">
+        <div class="title">
+            <h2>Thông tin cá nhân</h2>  
+        </div>
+        <div class="individual-infor">
+            <div class="individual">
+                <div class="individual-infor-title">
+                    <h3>Thông tin cá nhân</h3>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <div class="icon">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div style="width: 68%;">
+                        <table style="width:100%">
+                            <tr>
+                              <td class="subject">Họ và Tên:</td>
+                              <td class="n-subject"  >{{customer.tenKh}}</td>
+                            </tr>
+                            <tr>
+                              <td class="subject">Email:</td>
+                              <td class="n-subject">{{customer.email}}</td>
+                            </tr>
+                            <tr>
+                              <td class="subject">Số điện thoại:</td>
+                              <td class="n-subject">{{customer.sdt}}</td>
+                            </tr>
+                            <tr>
+                              <td class="subject">CMND:</td>
+                              <td class="n-subject">{{customer.cmnd}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="address">
+                <div class="individual-infor-title">
+                    <h3>Thông tin đại chỉ</h3>
+                </div>
+                <div style="padding: 3px;">
+                    <table style="width:100%">
+                        <tr>
+                          <td class="subject">Địa chỉ:</td>
+                          <td class="n-subject">
+                              <input type="text" [(ngModel)]="customer.diaChi">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="subject">Thành phố:</td>
+                            <td class="n-subject">
+                                <label *ngIf="customer.thanhPho!=null||customer.thanhPho!=undefined; else elseThanhPho">{{customer.thanhPho}}</label>
+                                <ng-template #elseThanhPho>
+                                    <select (change)="onSelectCity($event.target)">
+                                        <option *ngFor="let city of cities" value="{{city.id}}" >{{city.name}}</option>
+                                    </select>
+                                </ng-template>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="subject">Huyện:</td>
+                            <td class="n-subject">
+                                <label *ngIf="customer.quanHuyen!=null||customer.quanHuyen!=undefined; else elseQuanHuyen">{{customer.quanHuyen}}</label>
+                                <ng-template #elseQuanHuyen>
+                                    <select (change)="onSelectDistrict($event.target)">
+                                        <option *ngFor="let district of districts" value="{{district.name}}">{{district.name}}</option>
+                                    </select>
+                                </ng-template>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div>
+            <button id="btn-save" (click)="createCustomerInformation()">Lưu</button>
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>

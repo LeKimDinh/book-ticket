@@ -1,0 +1,101 @@
+.account-container{
+    width: 100%; 
+    padding: 0.2rem;
+    margin-bottom: 1.5rem;
+    border-radius: 10px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    min-height: 600px;
+}
+
+.account-header{
+    display: flex;
+    justify-content: space-between;
+    margin: 1.5rem 1rem;
+}
+
+.account-header i{
+    font-size: 56px;
+    margin-right: 0.5rem;
+    color: #00613d;
+}
+
+#account-header span{
+    font-size: 40px;
+    color: #ef5222;
+}
+
+#search-bus-station{
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.input-search{
+    outline:  none;
+    width: 80%;
+    margin-right: 2%;
+    height: 35px !important;
+    margin-top: 20px !important;
+}
+
+#btn-search{
+    width: 100px;
+    padding: 0rem;
+    background: #00613d;
+    color: white;
+    height: 35px;
+    margin-top: 20px !important;
+}
+
+.old{
+    background-color: #fff7f5;
+    color: #ef5222;
+}
+
+
+
+#btn-add, #btn-save{
+    background: #00613d;
+    margin: 0.5rem;
+    color: white;
+    border-radius: 20px;
+}
+
+
+#account-form{
+    width: 90%;
+    margin: 1.5rem auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+#account-form label{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#account-form input{
+    outline: none;
+}
+
+.operations i{
+    padding: 0rem 1rem;
+}
+
+.edit{
+    color: #00613d !important;
+    font-weight: bold;
+}
+
+.delete, .notification{
+    color: #ef5222 !important;
+    font-weight: bold;
+}
+
+.edit:hover, .delete:hover{
+    cursor: pointer;
+}
+
+.form-group{
+    width: 15%;
+}

@@ -1,0 +1,161 @@
+.container{
+    margin: auto;
+    width: 60%;
+    margin-top: 10px;
+    background: #ffffff;
+    border-radius: 10px;
+}
+
+.container img{
+    width: 100%;
+    height: 250px;
+    border-radius: 10px;
+}
+
+.container .transhipment{
+    box-shadow: 10px 15px 20px rgba(0, 0, 0, .1);
+    border-radius: 10px;
+    margin-top: 30px;
+}
+
+.container .transhipment .title{
+    font-size: 20px;
+    background: #F7F7F7;
+    font-weight: bold;
+    color: #F15A24;
+    padding: 1em 2em;
+    text-align: left;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+table{
+    width: 100%;
+}
+
+table tr th{
+    padding: 20px;
+    font-weight: normal;
+}
+
+.label-station{
+    width: 25%;
+    text-align: center;
+}
+
+.address{
+    text-align: left;
+}
+
+.label-search{
+    font-weight: bold;
+    font-size: 18px;
+    margin-left: 40px;
+    width: 50%;
+}
+
+#search{
+    font-weight: 400 !important;
+    margin-left: 2%;
+    outline: none;
+    border: 0.5px solid #dfdfdf;
+}
+
+.content-left{
+    margin-top: 20px;
+}
+
+#list-route{
+    width: 92%;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    margin: 20px auto;
+    border-collapse: collapse;
+   
+}
+
+#list-route tr th{
+    background: #d9edf7;
+   
+}
+
+.price{
+    color: #F15A24;
+}
+
+.btn-book-ticket{
+    background: #F15A24;
+    color: white;
+    width: 10%;
+    border-radius: 10px;
+    padding: 2px;
+    margin-right: 40px;
+}
+
+#list-route tr td{
+    text-align: center;
+    padding: 10px 0px;
+}
+
+#list-route tr:hover{
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.odd{
+    background-color: #fff7f5;
+}
+
+.no-action{
+    width: 15%;
+}
+
+
+.container .transhipment .content-right{
+    width: 100%;
+    background: #d9edf7 !important;
+    text-align: center;
+    font-size: 18px;
+    padding: 20px 0px;
+    margin-top: 20px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.container .transhipment .content-right p{
+    text-align: left;
+    margin-left: 50px;
+}
+
+.container .continue{
+    float: right;
+}
+
+.container .continue .button{
+    width: 250px;
+    padding: 20px;
+    font-size: 16px;
+    border: 1px solid   #e7e4e4;
+    background: #F15A24;
+    color: white;
+    border-radius: 10px;
+    font-weight: bold;
+}
+.container .continue .button:hover{
+    cursor: pointer;
+}
+
+#routes{
+    outline: none;
+    color: #F15A24;
+    font-weight: bold;
+    border:none;
+    border-bottom: 3px solid #F15A24;
+    background-color: #F7F7F7;
+}
+
+#notify{
+    color: #F15A24;
+    text-align: center;
+    font-weight: bold;
+    margin: 2rem 0rem;
+}

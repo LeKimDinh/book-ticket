@@ -1,0 +1,21 @@
+<div class="modal-form">
+    <form [formGroup]="formLogIn" (submit)="onLogIn()">
+        <h2 class="title">Đăng Nhập</h2>
+        <div class="form-group">
+            <div style="margin-bottom: 1%;"><label for="name">Tên tài khoản <span style="color: #ef5222;">(*)</span></label></div> 
+            <div><input type="text" class="form-control" formControlName="userName"> </div> 
+        </div>
+        <div class="form-group">
+            <div style="margin-bottom: 1%;"><label for="name">Mật khẩu <span style="color: #ef5222;">(*)</span></label></div> 
+            <div><input type="password" class="form-control" formControlName="passWord"> </div> 
+        </div>
+        <div class="item">
+            <button #logInSuccess>Đăng Nhập</button>
+        </div>
+        <div class="item">
+            <a #signUp (click)="onSignUp()">Đăng Ký</a>
+        </div>
+    </form>
+</div>
+
+

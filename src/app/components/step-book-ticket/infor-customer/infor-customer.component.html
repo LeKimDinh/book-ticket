@@ -1,0 +1,290 @@
+<app-header></app-header>
+<section style="padding-bottom: 50px">
+  <div class="container">
+    <ul class="progressbar">
+      <li class="active"></li>
+      <li class="active"></li>
+      <li class="active-next">Thông Tin Khách Hàng</li>
+      <li></li>
+    </ul>
+    <div class="clear"></div>
+    <div class="infor">
+      <div class="infor-left">
+        <div style="padding: 10%">
+          <h2 class="title">THÔNG TIN KHÁC HÀNG</h2>
+          <h2 *ngIf="!oneWay" class="title">THÔNG TIN KHÁC HÀNG ĐI</h2>
+          <div style="width: 100%; margin-top: 10px" *ngIf="!isLoad">
+            <form [formGroup]="customerForm">
+              <div class="form-group">
+                <div>
+                  <label for="name"
+                    >Họ tên hành khách
+                    <span style="color: #ef5222">(*)</span></label
+                  >
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="customerName"
+                    [ngClass]="{
+                      'is-invalid':
+                        isSubmit && customerForm.controls.customerName.errors
+                    }"
+                  />
+                </div>
+                <div
+                  *ngIf="isSubmit && customerForm.controls.customerName.errors"
+                >
+                  <div
+                    *ngIf="customerForm.controls.customerName?.errors?.required"
+                    class="notify"
+                  >
+                    * Tên khách hàng không được bỏ trống.
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div>
+                  <label for="name"
+                    >Số điện thoại
+                    <span style="color: #ef5222">(*)</span></label
+                  >
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="phone"
+                    [ngClass]="{
+                      'is-invalid':
+                        isSubmit && customerForm.controls.phone.errors
+                    }"
+                  />
+                </div>
+                <div *ngIf="isSubmit && customerForm.controls.phone.errors">
+                  <div
+                    *ngIf="customerForm.controls.phone?.errors?.required"
+                    class="notify"
+                  >
+                    * Số điện thoại khách hàng không được bỏ trống.
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div>
+                  <label for="name"
+                    >Email <span style="color: #ef5222">(*)</span></label
+                  >
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="email"
+                    [ngClass]="{
+                      'is-invalid':
+                        isSubmit && customerForm.controls.email.errors
+                    }"
+                  />
+                </div>
+                <div *ngIf="isSubmit && customerForm.controls.email.errors">
+                  <div
+                    *ngIf="customerForm.controls.email?.errors?.required"
+                    class="notify"
+                  >
+                    * Email không được bỏ trống.
+                  </div>
+                  <div
+                    *ngIf="customerForm.controls.email?.errors?.email"
+                    class="notify"
+                  >
+                    * Email sai format.
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="form-city-dis">
+                  <div class="form-city">
+                    <div>
+                      <label for="name"
+                        >Tỉnh/TP <span style="color: #ef5222">(*)</span></label
+                      >
+                    </div>
+                    <div style="width: 100%">   
+                        <select
+                          class="city"
+                          style="width: 100%"
+                          required
+                          (change)="onSelectCity($event.target)"
+                        >
+                          <ng-container *ngFor="let city of cities">
+                            <option value="{{ city.id }}">
+                              {{ city.name }}
+                            </option>
+                          </ng-container>
+                        </select>
+                        <div
+                          *ngIf="isSubmit && customerForm.controls.city.errors"
+                        >
+                          <div
+                            *ngIf="customerForm.controls.city?.errors?.required"
+                            class="notify"
+                          >
+                            * Tỉnh không được bỏ trống.
+                          </div>
+                        </div>
+                      
+                    </div>
+                  </div>
+                  <div class="form-district">
+                    <div>
+                      <label for="name"
+                        >Quận/Huyện
+                        <span style="color: #ef5222">(*)</span></label
+                      >
+                    </div>
+                    <div style="width: 100%">
+                        <select
+                          class="city"
+                          style="width: 100%; margin-right: 17px"
+                          required
+                          (change)="onSelectDistrict($event.target)"
+                        >
+                          <ng-container *ngFor="let district of districts">
+                            <option value="{{district.name}}">{{ district.name }}</option>
+                          </ng-container>
+                        </select>
+                        <div
+                          *ngIf="
+                            isSubmit && customerForm.controls.district.errors
+                          "
+                        >
+                          <div
+                            *ngIf="
+                              customerForm.controls.district?.errors?.required
+                            "
+                            class="notify"
+                          >
+                            * Huyện không được bỏ trống.
+                          </div>
+                        </div>
+                     
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <app-loading *ngIf="isLoad"></app-loading>
+        </div>
+      </div>
+      <div *ngIf="!oneWay" class="infor-left">
+        <div style="padding: 10%">
+          <h2 class="title">THÔNG TIN KHÁC HÀNG VỀ</h2>
+          <div style="width: 100%; margin-top: 10px">
+            <form action="">
+              <div class="form-group">
+                <div>
+                  <label for="name"
+                    >Họ tên hành khách
+                    <span style="color: #ef5222">(*)</span></label
+                  >
+                </div>
+                <div><input type="text" class="form-control" /></div>
+              </div>
+              <div class="form-group">
+                <div>
+                  <label for="name"
+                    >Số điện thoại
+                    <span style="color: #ef5222">(*)</span></label
+                  >
+                </div>
+                <div><input type="text" class="form-control" /></div>
+              </div>
+              <div class="form-group">
+                <div>
+                  <label for="name"
+                    >Email <span style="color: #ef5222">(*)</span></label
+                  >
+                </div>
+                <div><input type="text" class="form-control" /></div>
+              </div>
+              <div class="form-group">
+                <div class="form-city-dis">
+                  <div class="form-city">
+                    <div>
+                      <label for="name"
+                        >Tỉnh/TP <span style="color: #ef5222">(*)</span></label
+                      >
+                    </div>
+                    <div style="width: 100%">
+                      <select class="city" style="width: 100%" required>
+                        <option>Phú Yên</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-district">
+                    <div>
+                      <label for="name"
+                        >Quận/Huyện
+                        <span style="color: #ef5222">(*)</span></label
+                      >
+                    </div>
+                    <div style="width: 100%">
+                      <select
+                        class="city"
+                        style="width: 100%; margin-right: 17px"
+                        required
+                      >
+                        <option>Huyện</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="infor-right">
+        <div style="padding: 10%">
+          <h2 class="title" style="color: #ef5222">ĐIỀU KHOẢN & LƯU Ý</h2>
+          <p>
+            <span style="color: #ef5222">(*)</span> Quý khách vui lòng mang
+            email có chứa mã vé đến văn phòng để đổi vé lên xe trước giờ xuất
+            bến ít nhất.
+          </p>
+          <p>
+            <span style="color: #ef5222">(*)</span> Thông tin hành khách phải
+            chính xác, nếu không sẽ không thể lên xe hoặc hủy/đổi vé.
+          </p>
+          <p>
+            <span style="color: #ef5222">(*)</span> Quý khách không được đổi/trả
+            vé vào các ngày Lễ Tết (ngày thường quý khách được quyền chuyển đổi
+            hoặc hủy vé.
+          </p>
+          <p>
+            <span style="color: #ef5222">(*)</span> Nếu quý khách có nhu cầu
+            trung chuyển, vui lòng liên hệ số điện thoại.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="policy">
+      <input (click)="onCheck()" type="checkbox" /> Chấp nhận
+      <span>Điều Khoản</span> đặt vé của chúng tôi *.
+    </div>
+    <div class="back">
+      <button class="button" (click)="onBack()">
+        <i class="fas fa-chevron-left"></i> Quay Lại
+      </button>
+    </div>
+    <div class="cont">
+      <button class="button" (click)="onContinue()">
+        Tiếp Tục<i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+</section>
+<app-footer></app-footer>

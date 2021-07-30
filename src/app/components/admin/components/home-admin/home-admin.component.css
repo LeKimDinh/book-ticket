@@ -1,0 +1,96 @@
+.admin-container{
+    padding: 0.2rem;
+
+    background: white;
+    min-height: 600px;
+}
+
+.admin-home{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px; 
+}
+
+.chart-revenue{
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    border-radius: 10px;
+    width: 99%;
+    margin: 1rem 0rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.chart-revenue-chart{
+    width: 65%;
+    padding: 0.2rem;
+    display: block;
+    border-right: 0.2px solid #dfdfdf;
+}
+
+.chart-revenue-infor{
+    width: 35%;
+    margin-top: 5rem;
+    justify-content: center;
+    text-align: center;
+  
+}
+
+.chart-revenue-infor select{
+    outline: none;
+    border: 1px solid #ef5222;
+    color: #ef5222;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.bold{
+    color: #ef5222;
+    font-weight: bold;
+}
+
+.label-blod{
+    color: #00613d;
+    font-weight: bold;
+}
+
+
+
+.home-item{
+    width: 24%;
+    margin-right: 1%;
+    height: 140px;
+    border-radius: 10px;
+    background: white;
+    color: #ef5222;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.home-item:hover{
+    cursor: pointer;
+}
+
+.home-item .home-item-icon{
+    width: 40%;
+    text-align: center;
+  
+}
+
+.home-item .home-item-infor p, label{
+   font-weight: bold;
+}
+
+.home-item .home-item-icon i{
+    font-size: 80px;
+    padding: 1.5rem;
+}
+
+.home-item .home-item-infor{
+    text-align: center;
+    padding: 2.2rem;
+}
+
+

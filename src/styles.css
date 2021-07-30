@@ -1,0 +1,394 @@
+/* You can add global styles to this file, and also import other style files */
+*{
+    margin: 0%;
+    padding: 0%;
+
+    box-sizing: border-box;
+
+    font-family: 'Oswald', sans-serif;
+
+    font-size: 20px;
+
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    
+}
+
+.title-item{
+    font-size: 24px !important;
+}
+
+.container{
+    margin: 0px auto;
+    width: 900px;
+}
+
+button{
+    line-height: inherit;
+
+    width: 200px;
+    padding: .5rem;
+
+    border:none;
+    outline: none;
+    background: none;
+
+    font-size: 16px;
+}
+
+a{
+    text-decoration: none;
+    color: #3f4954;
+}
+
+
+a:hover, button:hover{
+    cursor: pointer;
+}
+
+label{
+    font-size: 16px;
+}
+
+span{
+    color: black;
+    font-weight: normal;
+}
+
+ul{
+    list-style-type: none;
+}
+
+.flex-row{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    color: #3f4954;
+}
+
+.h1{
+    
+    color: #444;
+    margin-top: 20px;
+}
+
+img{
+    background-size: cover;
+    width: 100%;
+    height: 350px;
+    display: flex;
+    justify-content: center;
+}
+
+input{
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    cursor: text;
+}
+
+ul{
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+
+li {
+    text-align: -webkit-match-parent;
+    list-style: none;
+}   
+
+
+/*  */
+.progressbar{
+    counter-reset: step;
+   
+}
+
+.progressbar li{
+    list-style-type: none;
+    float: left;
+    width: 25%;
+    position: relative;
+    text-align: center;
+   
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #a59f9f;
+}
+
+.progressbar li:before{
+    content: counter(step);
+    counter-increment: step;
+    width: 30px;
+    height: 30px;
+    border: 2px solid #dddddd;
+    display: block;
+    text-align: center;
+    margin: 0 auto 10px auto;
+    border-radius: 50%;
+    line-height: 30px;
+    background-color: #dddddd;
+    font-weight: bold;
+    
+}
+
+.progressbar li:after{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    background-color:#dddddd ;
+    top: 14px;
+    left: -50%;
+    z-index: -1;
+}
+
+.progressbar li:first-child:after{
+    content: none;
+}
+
+.progressbar li.active{
+    color:#ef5222;
+}
+
+.progressbar li.active-next{
+    color:#ef5222;
+}
+
+.progressbar li.active:before{
+    border-color:#ef5222;
+    background: white;
+}
+.progressbar li.active-next:before{
+    border-color:#ef5222;
+    background: white;
+}
+
+
+.progressbar li.active + li:after{
+    background-color:#ef5222;
+} 
+
+/*  */
+
+.back button{
+    float: left;
+    color: white;
+    padding: 20px 0px;
+    width: 250px;
+    background-color: #00613d;
+    font-weight: bold;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+.back i{
+    margin-right: 10px ;
+}
+
+.cont button{
+    float: right;
+    width: 250px;
+    padding: 20px 0px;
+    background: #e05c30;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+.cont i{
+    margin-left: 10px ;
+}
+
+/*  */
+.title{
+    text-align: center;
+    color: #00613d;
+}
+
+.clear{
+    clear: both;
+}
+
+/*  */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+}
+
+/*  */
+.select-year{
+    width: 15%;
+    margin: 0px auto;
+    padding-bottom: 15px;
+}
+
+.select-year label{
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 3%;
+}
+
+.select-year select{
+    width: 40%;
+    font-size: 16px;
+    text-align: center;
+    outline: none;
+}
+
+
+/* body {
+  background: #eaecfa;
+}
+ */
+
+.loader {
+  width: 250px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 40%;
+}
+
+
+.table-scroll{
+    display: block;
+    empty-cells: show;
+    width: 98%;
+    margin: 0.5rem auto;
+    border-spacing: 0;
+}
+  
+.table-scroll thead{
+    background-color: #00613d;
+    color: white;
+    position:relative;
+    display: block;
+    width: 100%;
+    overflow-y: scroll;
+}
+  
+  .table-scroll tbody{
+    display: block; 
+    position:relative;
+    width:100%; 
+    overflow-y:scroll;
+  }
+  
+  .table-scroll tr{
+    width: 100%;
+    display:flex;
+  }
+  
+  .table-scroll td,.table-scroll th{
+    flex-basis:100%;
+    flex-grow:2;
+    display: block;
+    padding: 1rem;
+    text-align:left;
+  }
+  
+  .table-scroll.small-first-col td:first-child,
+  .table-scroll.small-first-col th:first-child{
+    flex-basis:20%;
+    flex-grow:1;
+  }
+  
+  .table-scroll tbody tr:nth-child(2n){
+    background-color: #fff7f5;
+    color: #ef5222;
+  }
+  
+  .body-half-screen{
+    max-height: 50vh;
+  }
+  
+  .small-col{flex-basis:10%;}
+
+  
+#select-year{
+    display: flex;
+    justify-content: center;
+}
+
+.btn-year{
+    border-radius: 10px;
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+} 
+
+#next-year{
+    color: #ef5222;
+}
+
+#previous-year{
+    color: #00613d;
+}
+
+@keyframes load {
+  0% { left: 0; height: 30px; width: 15px }
+  50% { height: 8px; width: 40px }
+  100% { left: 235px; height: 30px; width: 15px}
+} 
+
+
+@media screen and (max-width: 1320px){
+
+
+}
+@media screen and (max-width: 1140px){
+
+}
+
+
+@media screen and (max-width: 960px){
+    .container{
+        width: 98%;
+        
+        padding: 0px;
+        margin: 0px auto;
+    }
+
+}
+
+@media screen  and (max-width: 720px){
+    .container{
+        width: 100%;
+        margin: 0px auto;
+    }
+}
+
+
+@media screen and (max-width: 620px){
+    .container{
+        width: 99%;
+        margin: 0px auto;
+    }
+}
+
+

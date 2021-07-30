@@ -1,0 +1,222 @@
+<app-header [index]=0></app-header>
+<main>
+    <img src="./assets/background.png" alt="">
+    <div class="container" >
+        <form [formGroup]="busForm" class="form-search-route" >
+            <div style="margin-bottom: 10px;">
+                <input type="radio" name="type" (click)="onCheckTyeCheck(0)" checked>
+                <label for="">Một chiều</label>
+                <input type="radio" name="type" (click)="onCheckTyeCheck(1)">
+                <label for="">Khứ hồi</label>
+            </div>
+            <div class="booking-select-box-container">
+                <div class="place-select-container">
+                    <div class="auto-complete-place-container form-group">
+                        <label for="" class="title" style="text-align: center;">Điểm đi</label>                        
+                        <input type="text" #departureSearch class="select-place" formControlName="departure"  placeholder="Chọn nơi đi" 
+                        (click)="setSelectionRange(0)" 
+                        spellcheck="true">
+                        <div class="data-list-container hide">
+                            <ul class="place-list">
+                                <li  class="place-list-item" *ngFor="let i of busStations">
+                                    <button class="select-place-item list-item" (click)="onSelect(i,0)">
+                                        {{i.ben_toi}}
+                                        <span class="item-code">({{i.ben_toi}})</span>  
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <img src="./assets/route.png" class="img-route">
+
+                    <div class="auto-complete-place-container">
+                        <label for="" class="title" style="text-align: center;">Điểm đến</label>            
+                        <input type="text" class="select-place" #destinationSearch formControlName="destination" placeholder="Chọn nơi đến" (click)="setSelectionRange(1)" spellcheck="true">
+                        <div class="data-list-container hide">
+                            <ul *ngIf="!isLoadBusStaion" class="place-list">
+                                <li class="place-list-item" *ngFor="let i of busStationsByID">
+                                    <button class="select-place-item list-item" (click)="onSelect(i,1)">
+                                        {{i.ben_toi}}
+                                        <span class="item-code">({{i.ben_toi}})</span>
+                                    </button>
+                                </li>
+                            </ul>
+                            <app-loading *ngIf="isLoadBusStaion"></app-loading>
+                        </div>
+                    </div>
+                </div>
+                <div class="date-select-container">
+                    <div class="dateSelectContainer select-from-date">
+                        <label for="" class="title" style="text-align: center;">Ngày đi</label>
+                        <div class="controls">
+                            <div class="vue-daterange-picker" style="width: 100%; margin-top: 1%;">
+                                <input type="date" id="go-date" min="{{today}}" [value]="getDateGo()" (change)="dateChange($event.target,0)" style="width: 80%; text-align: center; margin-left: 10%;">  
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dateSelectContainer select-to-date">
+                            <label for="" class="title" style="text-align: center;">Ngày về</label>
+                            <div class="controls">
+                                <div class="vue-daterange-picker" style="width: 100%; padding-left: 3%; margin-top: 1%;">
+                                    <input type="date" id="return-date" min="{{returnDay}}" [value]="getDateReturn()" (change)="dateChange($event.target,1)" [disabled]="getOneWay()" style="width: 80%; text-align: center; margin-left: 10%;">  
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>  
+            <div>
+                <button type="submit" name="search" class="btn-search" (click)="onSearch()" ><i class="fas fa-search"></i> TÌM CHUYẾN XE</button>
+            </div>
+        </form>
+        <section style="padding: 24px;">
+           <div class="title title-router-popular" style="text-align: left;">TUYẾN PHỔ BIẾN</div>
+           <div *ngIf="!isLoad" class="box-place-popular">
+                <div class="placed placed-left">
+                    <ng-container *ngFor="let item of busRoutesPopular; let indexOfElement=index">
+                        <div *ngIf="indexOfElement<4" class="placed-infor" (click)="onShowSchedule(item)">
+                            <img src="{{item.hinh_anh}}" alt="#" style="width: 40%;">
+                            <div class="placed-infor-detail"  >
+                                <div>
+                                    <p *ngIf="indexOfElement%2!=0" id="odd">{{item.ben_xe_di}} ⇒ {{item.ben_xe_toi}}</p>
+                                    <p *ngIf="indexOfElement%2==0" id="even">{{item.ben_xe_di}} ⇒ {{item.ben_xe_toi}}</p>
+                                </div>
+                                <div style="display: flex;justify-content: space-between;">
+                                    <i class="fas fa-map-marker-alt"> {{item.khoang_cach}}KM</i>
+                                    <i class="fas fa-clock"> {{item.khoang_thoi_gian}}h</i>
+                                    <i *ngIf="indexOfElement%2!=0" id="odd" class="fas fa-tags price" > {{item.gia_ca}}đ</i>
+                                    <i *ngIf="indexOfElement%2==0" id="even" class="fas fa-tags price" > {{item.gia_ca}}đ</i>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+                <div class="placed">
+                    <ng-container *ngFor="let item of busRoutesPopular; let indexOfElement=index">
+                        <div *ngIf="indexOfElement>=4" class="placed-infor" (click)="onShowSchedule(item)">
+                            <img src="{{item.hinh_anh}}" alt="#" style="width: 40%;">
+                            <div class="placed-infor-detail"  >
+                                <div>
+                                    <p *ngIf="indexOfElement%2==0" id="odd">{{item.ben_xe_di}} ⇒ {{item.ben_xe_toi}}</p>
+                                    <p *ngIf="indexOfElement%2!=0" id="even">{{item.ben_xe_di}} ⇒ {{item.ben_xe_toi}}</p>
+                                </div>
+                                <div style="display: flex;justify-content: space-between;">
+                                    <i class="fas fa-map-marker-alt"> {{item.khoang_cach}}KM</i>
+                                    <i class="fas fa-clock"> {{item.khoang_thoi_gian}}h</i>
+                                    <i *ngIf="indexOfElement%2==0" id="odd" class="fas fa-tags price" > {{item.gia_ca}}đ</i>
+                                    <i *ngIf="indexOfElement%2!=0" id="even" class="fas fa-tags price" > {{item.gia_ca}}đ</i>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+           </div>
+           <app-loading *ngIf="isLoad"></app-loading>
+        </section>
+    </div>
+    <section>
+        <div class="title title-popular">
+            <p style="font-size: 24px;">Điểm đến phổ biến</p>
+            <label style="font-size: 24px;">Gợi ý những địa điểm du lịch trong năm</label>
+        </div>
+        <div class="for_slick_slider multiple-items">
+            <div class="items">
+                <img src="../../assets/sapa.png" alt="">
+                <div class="item-text">
+                    <i class="fas fa-map-marker-alt">  Lào Cai</i>
+                    <h3>SaPa</h3>
+                </div>
+                <div class="overlay"></div>
+            </div>
+            <div class="items">
+                <img src="../../assets/dd1.jpg" alt="">
+                <div class="item-text">
+                    <i class="fas fa-map-marker-alt"> Quảng Ninh</i>
+                    <h3>Vịnh Hạ Long</h3>
+                </div>
+                <div class="overlay"></div>
+            </div>
+            <div class="items">
+                <img src="../../assets/hoi_an.png" alt="">
+                <div class="item-text">
+                    <i class="fas fa-map-marker-alt">  Đà Nẵng</i>
+                    <h3>Hội An</h3>
+                </div>
+                <div class="overlay"></div>
+            </div>
+            <div class="items">
+                <img src="../../assets/hue.png" alt="">
+                <div class="item-text">
+                    <i class="fas fa-map-marker-alt">  Huế</i>
+                    <h3>Cố Đô Huế</h3>
+                </div>
+                <div class="overlay"></div>
+            </div>
+            <div class="items">
+                <img src="../../assets/tphcm.png" alt="">
+                <div class="item-text">
+                    <i class="fas fa-map-marker-alt">  Tp. Hồ Chí Minh</i>
+                    <h3>Sài Gòn</h3>
+                </div>
+                <div class="overlay"></div>
+            </div>
+            <div class="items">
+                <img src="../../assets/nam_cat_tien.png" alt="">
+                <div class="item-text">
+                    <i class="fas fa-map-marker-alt">  Đồng Nai</i>
+                    <h3>Nam Cát Tiên</h3>
+                </div>
+                <div class="overlay"></div>
+            </div>
+            <div class="items">
+                <img src="../../assets/da_lat.png" alt="">
+                <div class="item-text">
+                    <i class="fas fa-map-marker-alt">  Đà Lạt</i>
+                    <h3>Lâm Đồng</h3>
+                </div>
+                <div class="overlay"></div>
+            </div>
+            <div class="items">
+                <img src="../../assets/ha_tien.png" alt="">
+                <div class="item-text">
+                    <i class="fas fa-map-marker-alt">  Hà Tiên</i>
+                    <h3>Rạch Giá</h3>
+                </div>
+                <div class="overlay"></div>
+            </div>
+            <div class="items">
+                <img src="../../assets/da_nang.png" alt="">
+                <div class="item-text">
+                    <i class="fas fa-map-marker-alt">  Đà Nẵng</i>
+                    <h3>Cầu Rồng</h3>
+                </div>
+                <div class="overlay"></div>
+            </div>
+            <div class="items">
+                <img src="../../assets/ha_noi.png" alt="">
+                <div class="item-text">
+                    <i class="fas fa-map-marker-alt">  Hà Nội</i>
+                    <h3>Hồ Gươm</h3>
+                </div>
+                <div class="overlay"></div>
+            </div>
+            <div class="items">
+                <img src="../../assets/nha_trang.png" alt="">
+                <div class="item-text">
+                    <i class="fas fa-map-marker-alt">  Nha Trang</i>
+                    <h3>Khánh Hòa</h3>
+                </div>
+                <div class="overlay"></div>
+            </div>
+            <div class="items">
+                <img src="../../assets/chau_doc.png" alt="">
+                <div class="item-text">
+                    <i class="fas fa-map-marker-alt">  Châu Đốc</i>
+                    <h3>Long Xuyên</h3>
+                </div>
+                <div class="overlay"></div>
+            </div>
+        </div>
+    </section>
+</main>
+<app-footer></app-footer>

@@ -1,0 +1,141 @@
+.nav-dashboard{
+    width: 15%;
+    border-right: 2px solid #ddd;
+    border-bottom: 2px solid #ddd;
+    overflow-x: hidden;
+    background: white;
+    box-shadow: 10px 15px 20px rgba(0, 0, 0, .1);
+
+}
+
+.nav-dashboard-logo{
+    width: 100%;
+    text-align: center;
+}
+
+.nav-dashboard-logo .logo{
+    padding: 1.5rem 0.5rem;
+    display: block;
+    font-weight: bold;
+    background: #00613d;
+    color: white;
+}
+
+.list-items{
+    width: 100%;
+}
+
+.list-items ul{
+    margin: 0px;
+    padding: 0px;
+}
+
+.pick{
+    background-color: #ef5222;
+    color: white;
+}
+
+.no-pick{
+    background-color: #f6f6f6;
+    color: black;
+}
+
+.list-items .item-admin{
+    text-align: left;
+    padding: 1rem;
+    margin: 10px;
+    border-radius: 10px;
+}
+
+.list-items li span{
+    text-align: center;
+}
+
+.list-items li i{
+    margin:0rem 0.5rem;
+}
+
+
+.data{
+    width: 85%;
+    background: #f6f6f6;
+}
+
+.data-nav{
+    text-align: right;
+    padding: 1.5rem;
+    width: 100%;
+    background: white;
+    box-shadow: 10px 15px 20px rgba(0, 0, 0, .1);
+    position: relative;
+}
+
+
+.infor-user{
+    display: none;
+    font-size: 16px;
+    flex-direction: column;
+    position: absolute;
+    top: 105%;
+    right: 0;
+    background: #fff;
+    border: none;
+    z-index: 10000;
+    width: 230px;
+    box-shadow: 0 10px 60px rgb(0 0 0 / 30%);
+    border-radius: 10px;
+  }
+  
+.infor-user .infor-user-icon{
+    text-align: center;
+    padding: 1rem;
+   
+}
+    
+.infor-user .infor-user-icon i{
+    font-size: 80px;
+    color: #c5c5c5;
+}
+  
+.infor-user li i{
+    margin-right: 5%;
+}
+  
+.infor-user ul{
+    margin: 0px;
+    padding: 0px;
+}
+  
+.infor-user li{
+    text-align: left;
+    padding: 1rem;
+    color: #c7c2c2;
+    border-bottom: 0.5px solid #f6f6f6;
+}
+  
+.infor-user li:hover, .no-pick:hover{
+    cursor: pointer;
+    color: #ef5222;
+    background: #ffdace;
+    transition: all 0.3s ease;
+}
+
+li:hover{ 
+    cursor: pointer;
+}
+
+
+h2{
+    text-align: center;
+    color: #00613d;
+}
+
+.show{
+    display: initial;
+}
+
+.type{
+    margin: 0.5rem;
+    background-color: white !important;
+}
+

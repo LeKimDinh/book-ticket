@@ -1,0 +1,413 @@
+<app-header [index]="-1"></app-header>
+<section>
+  <div class="container" style="margin-bottom: 200px">
+    <ul class="progressbar">
+      <li class="active"></li>
+      <li class="active-next">Chọn Ghế</li>
+      <li></li>
+      <li></li>
+    </ul>
+    <div class="form">
+      <div class="form-left">
+        <div class="form-select-time-address">
+          <div class="form-title">
+            <h2>Vé Đi</h2>
+            <p *ngIf="isHaveRoute && !isExpiredGo;" style="font-weight: bold">
+              Ngày: {{ step1.daygo }} - {{ step1.departure.ben_toi }} ⇒
+              {{ step1.destination.ben_toi }}
+            </p>
+            <div *ngIf="!isHaveRoute || isExpiredGo">
+              <p style="font-weight: bold">
+                Ngày:
+                <input
+                  id="date-go"
+                  type="date"
+                  [min]="dateNow"
+                  [value]="dateGo"
+                  (change)="onChangeDateGo($event.target)"
+                />
+                - {{ step1.departure.ben_toi }} ⇒
+                {{ step1.destination.ben_toi }}
+              </p>
+            </div>
+          </div>
+          <div class="select-station">
+            <p>Chọn Tuyến Xe</p>
+            <label
+              >{{ step1.departure.ben_toi }} ⇒ {{ step1.destination.ben_toi }}
+              <span>{{ busRouterGo.gia_ca }} đ</span></label
+            >
+          </div>
+          <div class="select-station">
+            <p>Giờ Khởi Hành</p>
+            <select name="time" (change)="onChangeTime($event.target, 0)">
+              <optGroup label="Sáng">
+                <option *ngFor="let i of listAMGo" value="{{ i.giochay }}">
+                  {{ i.giochay }} <span>(Giường)</span>
+                </option>
+              </optGroup>
+              <optGroup label="Chiều">
+                <option *ngFor="let i of listNoonGo" value="{{ i.giochay }}">
+                  {{ i.giochay }} <span>(Giường)</span>
+                </option>
+              </optGroup>
+              <optGroup label="Tối">
+                <option *ngFor="let i of listPMGo" value="{{ i.giochay }}">
+                  {{ i.giochay }} <span>(Giường)</span>
+                </option>
+              </optGroup>
+            </select>
+          </div>
+          <div class="select-station">
+            <p>Điểm Lên Xe</p>
+            <select style="margin-bottom: 20px" name="point">
+              <option>Bến xe {{ step1.departure.ben_toi }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-select-seats">
+          <div class="title">
+            <h2 style="text-align: center; color: #ef5222; padding: 3%">
+              Sơ Đồ Ghế
+            </h2>
+          </div>
+          <app-loading *ngIf="isLoadGo"></app-loading>
+          <div *ngIf="!isExpiredGo">
+            <div *ngIf="!isLoadGo" style="display: flex; justify-content: space-between; width: 100%">
+              <div [class]="seatsGo.floor==2?'floor-1':'f1'" style="padding-bottom: 10px">
+                <h2 *ngIf="seatsGo.floor == 2" style="text-align: center; color: #ef5222; padding: 3%">
+                  Tầng 1
+                </h2>
+                <h2 *ngIf="seatsGo.floor == 1" style="text-align: center; color: #ef5222; padding: 3%">
+                  Ghế
+                </h2>
+  
+                <table style="width: 100%">
+                  <ng-container *ngFor="let i of listSeatsFloor1Go; index as row">
+                    <tr>
+                      <ng-container *ngFor="let j of i.seat; index as local">
+                        <td
+                          *ngIf="j != 0 && j?.trang_thai == 1"
+                          id="seat"
+                          class="disable seat seatGo"
+                        >
+                          <button>{{ j.name }}</button>
+                        </td>
+                        <td
+                          *ngIf="j != 0 && j?.trang_thai == 0"
+                          id="seat"
+                          class="activety seat seatGo"
+                        >
+                          <button (click)="onBook(j, 0)">{{ j.name }}</button>
+                        </td>
+                        <td *ngIf="j == 0"></td>
+                      </ng-container>
+                    </tr>
+                  </ng-container>
+                </table>
+              </div>
+              <div
+                *ngIf="seatsGo.floor == 2"
+                class="floor-2"
+                style="padding-bottom: 10px"
+              >
+                <h2 style="text-align: center; color: #ef5222; padding: 3%">
+                  Tầng 2
+                </h2>
+                <table style="width: 100%">
+                  <ng-container *ngFor="let i of listSeatsFloor2Go; index as row">
+                    <tr>
+                      <ng-container *ngFor="let j of i.seat; index as local">
+                        <td
+                          *ngIf="j != 0 && j?.trang_thai == 1"
+                          id="seat"
+                          class="disable seat seatGo"
+                        >
+                          <button>{{ j.name }}</button>
+                        </td>
+                        <td
+                          *ngIf="j != 0 && j?.trang_thai == 0"
+                          id="seat"
+                          class="activety seat seatGo"
+                        >
+                          <button (click)="onBook(j, 0)">{{ j.name }}</button>
+                        </td>
+                        <td *ngIf="j == 0"></td>
+                      </ng-container>
+                    </tr>
+                  </ng-container>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="isExpiredGo" class="notification">
+            <p>Hiện tại không có xe chạy trong ngày này!</p>
+            <p>Xin hãy chọn ngày khác!</p>
+          </div>
+          <div style="clear: both"></div>
+          <div class="note">
+            <div class="note-content">
+              <label for=""
+                ><input
+                  type="text"
+                  disabled
+                  style="background: #eff9ff; border: 1px solid rgb(65, 62, 62)"
+                />
+                Trống</label
+              >
+            </div>
+            <div class="note-content">
+              <label for=""
+                ><input
+                  type="text"
+                  disabled
+                  style="background: #e05c30; border: 1px solid rgb(65, 62, 62)"
+                />
+                Đang chọn</label
+              >
+            </div>
+            <div class="note-content">
+              <label for=""
+                ><input
+                  type="text"
+                  disabled
+                  style="background: #696b6d; border: 1px solid rgb(65, 62, 62)"
+                />
+                Đã đặt</label
+              >
+            </div>
+          </div>
+          <div class="clear"></div>
+          <div style="display: flex; width: 100%">
+            <div class="selected-seat">
+              <p style="text-align: left">Ghế đã chọn:</p>
+              <div style="padding: 3%">
+                <span
+                  style="color: #f15a24; font-weight: bold"
+                  *ngFor="let i of listSeatsChooseGo"
+                  >{{ i.name }}
+                </span>
+              </div>
+            </div>
+            <div class="total">
+              <p>Tổng tiền:</p>
+              <p>
+                <span> {{ totalPriceGo }} đ</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-right">
+        <div class="form-select-time-address">
+          <div class="form-title notifycation">
+            <h2>Vé Về</h2>
+            <p *ngIf="isHaveRoute" style="font-weight: bold">
+              Ngày: {{ step1.returnday }} - {{ step1.destination.ben_toi }} ⇒
+              {{ step1.departure.ben_toi }}
+            </p>
+            <div *ngIf="!isHaveRoute">
+              <p style="font-weight: bold">
+                Ngày:
+                <input
+                  id="date-return"
+                  type="date"
+                  [min]="dateReturn"
+                  [value]="dateReturn"
+                />
+                - {{ step1.destination.ben_toi }} ⇒
+                {{ step1.departure.ben_toi }}
+              </p>
+            </div>
+          </div>
+          <div class="select-station">
+            <p>Chọn Tuyến Xe</p>
+            <label
+              >{{ step1.destination.ben_toi }} ⇒ {{ step1.departure.ben_toi }}
+              <span>{{ busRouterReturn.gia_ca }} đ</span></label
+            >
+          </div>
+          <div class="select-station">
+            <p>Giờ Khởi Hành</p>
+
+            <select name="time" (change)="onChangeTime($event.target, 1)">
+              <optGroup label="Sáng">
+                <option *ngFor="let i of listAMReturn" value="{{ i.giochay }}">
+                  {{ i.giochay }} <span>(Giường)</span>
+                </option>
+              </optGroup>
+              <optGroup label="Chiều">
+                <option
+                  *ngFor="let i of listNoonReturn"
+                  value="{{ i.giochay }}"
+                >
+                  {{ i.giochay }} <span>(Giường)</span>
+                </option>
+              </optGroup>
+              <optGroup label="Tối">
+                <option *ngFor="let i of listPMReturn" value="{{ i.giochay }}">
+                  {{ i.giochay }} <span>(Giường)</span>
+                </option>
+              </optGroup>
+            </select>
+          </div>
+          <div class="select-station">
+            <p>Điểm Lên Xe</p>
+            <select style="margin-bottom: 20px" name="point">
+              <option>Bến xe {{ step1.destination.ben_toi }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-select-seats">
+          <div class="title">
+            <h2 style="text-align: center; color: #ef5222; padding: 3%">
+              Sơ Đồ Ghế
+            </h2>
+          </div>
+          <app-loading *ngIf="isLoadReturn"></app-loading>
+          <div>
+            <div *ngIf="!isLoadReturn" style="display: flex; justify-content: space-between; width: 100%">
+              <div [class]="seatsReturn.floor==2?'floor-1':'f1'" style="padding-bottom: 10px">
+                <h2
+                  *ngIf="seatsReturn.floor == 2"
+                  style="text-align: center; color: #ef5222; padding: 3%"
+                >
+                  Tang 1
+                </h2>
+                <h2
+                  *ngIf="seatsReturn.floor == 1"
+                  style="text-align: center; color: #ef5222; padding: 3%"
+                >
+                  Ghe
+                </h2>
+  
+                <table style="width: 100%">
+                  <ng-container
+                    *ngFor="let i of listSeatsFloor1Return; index as row"
+                  >
+                    <tr>
+                      <ng-container *ngFor="let j of i.seat; index as local">
+                        <td
+                          *ngIf="j != 0 && j?.trang_thai == 1"
+                          id="seat"
+                          class="disable seat seatReturn"
+                        >
+                          <button>{{ j.name }}</button>
+                        </td>
+                        <td
+                          *ngIf="j != 0 && j?.trang_thai == 0"
+                          id="seat"
+                          class="activety seat seatReturn"
+                        >
+                          <button (click)="onBook(j, 1)">{{ j.name }}</button>
+                        </td>
+                        <td *ngIf="j == 0"></td>
+                      </ng-container>
+                    </tr>
+                  </ng-container>
+                </table>
+              </div>
+              <div
+                *ngIf="seatsReturn.floor == 2"
+                class="floor-2"
+                style="padding-bottom: 10px"
+              >
+                <h2 style="text-align: center; color: #ef5222; padding: 3%">
+                  Tang 2
+                </h2>
+                <table style="width: 100%">
+                  <ng-container
+                    *ngFor="let i of listSeatsFloor2Return; index as row"
+                  >
+                    <tr>
+                      <ng-container *ngFor="let j of i.seat; index as local">
+                        <td
+                          *ngIf="j != 0 && j?.trang_thai == 1"
+                          id="seat"
+                          class="disable seat seatReturn"
+                        >
+                          <button>{{ j?.name }}</button>
+                        </td>
+                        <td
+                          *ngIf="j != 0 && j?.trang_thai == 0"
+                          id="seat"
+                          class="activety seat seatReturn"
+                        >
+                          <button (click)="onBook(j, 1)">{{ j?.name }}</button>
+                        </td>
+                        <td *ngIf="j == 0"></td>
+                      </ng-container>
+                    </tr>
+                  </ng-container>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div style="clear: both"></div>
+          <div class="note">
+            <div class="note-content">
+              <label for=""
+                ><input
+                  type="text"
+                  disabled
+                  style="background: #eff9ff; border: 1px solid rgb(65, 62, 62)"
+                />
+                Trống</label
+              >
+            </div>
+            <div class="note-content">
+              <label for=""
+                ><input
+                  type="text"
+                  disabled
+                  style="background: #e05c30; border: 1px solid rgb(65, 62, 62)"
+                />
+                Đang chọn</label
+              >
+            </div>
+            <div class="note-content">
+              <label for=""
+                ><input
+                  type="text"
+                  disabled
+                  style="background: #696b6d; border: 1px solid rgb(65, 62, 62)"
+                />
+                Đã đặt</label
+              >
+            </div>
+          </div>
+          <div class="clear"></div>
+          <div style="display: flex; width: 100%">
+            <div class="selected-seat">
+              <p style="text-align: left">Ghế đã chọn:</p>
+              <div style="padding: 3%">
+                <span
+                  style="color: #f15a24; font-weight: bold"
+                  *ngFor="let i of listSeatsChooseReturn"
+                  >{{ i.name }}
+                </span>
+              </div>
+            </div>
+            <div class="total">
+              <p>Tổng tiền:</p>
+              <p>
+                <span> {{ totalPriceReturn }} đ</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="back">
+      <button class="button" (click)="onGoBack()">
+        <i class="fas fa-chevron-left"></i> Quay Lại
+      </button>
+    </div>
+    <div class="cont" *ngIf="getBan()">
+      <button class="button" (click)="onContinue()">
+        Tiếp Tục<i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+</section>
+<app-footer></app-footer>

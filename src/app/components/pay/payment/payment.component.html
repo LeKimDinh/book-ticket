@@ -1,0 +1,138 @@
+<app-header ></app-header>
+<div *ngIf="isLoading">
+    <div style="height:100px"></div>
+    <app-loading></app-loading>
+    <div style="height:100px"></div>
+</div>
+<div *ngIf="!isLoading">
+    <section style="padding-bottom:50px">
+        <div class="container">
+            <ul class="progressbar">
+                <li class="active"></li>
+                <li class="active"></li>
+                <li class="active"></li>
+                <li class="active-next">Thanh Toán</li>
+            </ul>
+            <div class="clear"></div>
+            <div class="pay">
+                <h2 class="title">Thông tin mua vé</h2>
+                <div>
+                    <h3>Thông tin khác hàng mua vé</h3>
+                    <div class="customer">
+                        <div class="customer-infor">
+                            <label for=""> <span>Họ và tên: </span> {{inforCustomer.name}}</label>
+                        </div>
+                        <div class="customer-infor">
+                            <label for=""> <span>Số điện thoại: </span> <span class="notifycation">{{inforCustomer.phone}}</span></label>
+                        </div>
+                        <div class="customer-infor" style="width: 35%;">
+                            <label for=""> <span>Email: </span> {{inforCustomer.email}}</label>
+                        </div>
+                    </div>
+                   <div class="customer">
+                        <label for="" style="padding: 0% 3.2% 3%;"> <span>Nơi ở: </span> {{inforCustomer.district}}, Tỉnh {{inforCustomer.city}}</label>
+                   </div>
+                </div>
+                <ng-container *ngFor="let ticket of tickets; let i = index;">
+                    <div>
+                        <h3>Thông tin vé</h3>
+                        <div class="customer">
+                            <div class="customer-infor">
+                                <label *ngIf="i==0; else elseTicket">
+                                    <span>Tuyến: </span> 
+                                    <span class="notifycation">{{inforRoute.departure.ben_toi}} ⇒ {{inforRoute.destination.ben_toi}}</span> 
+                                </label>
+                                <ng-template #elseTicket>
+                                    <span>Tuyến: </span> 
+                                    <span class="notifycation">{{inforRoute.destination.ben_toi}} ⇒ {{inforRoute.departure.ben_toi}}</span> 
+                                </ng-template>
+                            </div>
+                            <div class="customer-infor">
+                                <label> <span>Số lượng ghế: </span> {{ticket.seats.length}}</label>
+                            </div>
+                            <div class="customer-infor" style="width: 35%;">
+                                <label> <span>Số ghế: </span> 
+                                    <ng-container *ngFor="let seat of ticket.seats; let i = index">
+                                        <span class="notifycation">{{seat.name}} </span>
+                                        <span class="notifycation" *ngIf="i<ticket.seats.length-1">,</span>
+                                    </ng-container>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="customer">
+                            <div class="customer-infor">
+                                <label> 
+                                    <span>Thời gian: </span> 
+                                    <span *ngIf="i==0;else else3" class="notifycation">{{ticket.time}} h {{inforRoute.daygo}}</span>  
+                                    <ng-template #else3>
+                                        <span class="notifycation">{{ticket.time}} h {{inforRoute.returnday}}</span>
+                                    </ng-template>
+                                </label>
+                            </div>
+                            <div class="customer-infor">
+                                <label *ngIf="i==0;else else2"> 
+                                    <span>Điểm lên xe: </span>Bến xe {{inforRoute.departure.ben_toi}}
+                                </label>
+                                <ng-template #else2>
+                                    <label> 
+                                        <span>Điểm lên xe: </span>Bến xe {{inforRoute.destination.ben_toi}}
+                                    </label>
+                                </ng-template>
+                            </div>
+                            <div class="customer-infor" style="width: 35%;">
+                                <label *ngIf="i==0;else else1"> 
+                                    <span>Nơi xuống: </span>Bến xe {{inforRoute.destination.ben_toi}}
+                                </label>
+                                <ng-template #else1>
+                                    <label> 
+                                        <span>Nơi xuống: </span>Bến xe {{inforRoute.departure.ben_toi}}
+                                    </label>
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="isDiscount" class="total">
+                        <div style="float: right; padding-right: 3%;">
+                            <p style="color: #00613d;">Giảm giá : <span class="notifycation">{{this.logInSuccess?.discount}} <sup data-v-6f125f51="">%</sup></span></p>
+                        </div>
+                    </div>
+                    <div class="total">
+                        <div style="float: right; padding-right: 3%;">
+                            <p style="color: #00613d;">Tổng Tiền : <span class="notifycation">{{ticket.totalMoney}} <sup data-v-6f125f51="">₫</sup></span></p>
+                        </div>
+                    </div>
+    
+                </ng-container>
+                
+            </div>
+            <section *ngIf="!isSuccess" id="type-pay"> 
+                <div [ngClass]="isCheckTicket?'ban':''" class="pay-item" (click)="onSelectTypePay(0)">
+                    <img src="./assets/paypall.svg" alt="payPall">
+                </div>
+                <div [ngClass]="isCheckTicket?'ban':''" class="pay-item" (click)="onSelectTypePay(1)">
+                    <img src="./assets/vnPay.png" alt="vnPay">
+                </div>
+                <div [ngClass]="isCheckTicket?'ban':''" class="pay-item" (click)="onSelectTypePay(2)">
+                    <img src="./assets/zalopay.png" alt="zaloPay">
+                </div>
+            </section>
+            <div *ngIf="!isSuccess">
+                <div class="back">
+                    <button class="button" [routerLink]="['/infor-customer']"><i class="fas fa-chevron-left"></i> Quay Lại</button>
+                </div>
+                <div class="cont">
+                    <button class="button" [ngClass]="isCheckTicket?'ban':''" [disabled]="isCheckTicket" (click)="onContinue()">Thanh toán<i class="fas fa-chevron-right"></i></button>
+                </div>    
+            </div>
+        </div>
+        <div id="myModalPay" class="modal">
+            <div style="background:white; margin: 100px auto; padding: 2%; width: 30%; border-radius: 10px;">
+                <app-paypall *ngIf="type==0" (newIsLoading)="Loading($event)"></app-paypall>
+                <app-vnpay *ngIf="type==1" ></app-vnpay>
+                <app-zalopay *ngIf="type==2" ></app-zalopay>
+            </div>
+        </div>
+    </section>
+</div>
+<app-footer></app-footer>
+

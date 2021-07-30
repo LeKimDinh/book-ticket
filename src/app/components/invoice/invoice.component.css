@@ -1,0 +1,96 @@
+.invoice{
+    width: 50%;
+    border-radius: 10px;
+    margin: 5% auto;
+    padding: 3% 5%;
+    margin-bottom: 300px;
+    box-shadow: 10px 15px 20px rgba(0, 0, 0, .1);
+} 
+
+.invoice h2{
+    text-align: center;
+    color: #00613d;
+}
+
+.incoive label{
+    font-size: 14px;
+}
+
+.invoice input, select{
+    font-size: 14px;
+    padding: 0px;
+    width: 100%;
+    outline: none;
+    padding: 2px;
+    border: 1px solid rgb(170, 165, 165);   
+}
+
+.invoice button{
+    width: 100%;
+    font-weight: bold;
+}
+
+.infor-invoice{
+    margin: 50px auto;
+    width: 100%;
+}
+
+.btn-back{
+    float: left; 
+    padding: 10px; 
+    border-radius: 10px;
+    background: #00613d;  
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    width: 150px;
+}
+
+.btn-back:hover{
+    cursor: pointer;
+}
+
+.invoice .invoice-search .btn-confirm{
+    width: 35%;
+    font-size: 16px;
+    font-family: 'Oswald', sans-serif; 
+    border-bottom: 5px solid #00613d;
+}
+
+.infor-invoice .title{
+    border-radius: 50px;
+    color: #00613d;
+    padding: 30px;
+}
+
+.infor-invoice table{
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+}
+.infor-invoice table tr th{
+    background-color: #00613d;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+.infor-invoice table tr td{
+    text-align: center;
+    border-bottom: 1px dashed #00613d;
+    padding: 10px;
+}
+
+#btn-search{
+    background: #00613d;
+    color:white;
+    border-radius: 4px;
+    margin-top: 1rem;
+}
+
+.refund i{
+    color: #ef5222;
+}
+
+.refund i:hover{
+    cursor: pointer;
+}

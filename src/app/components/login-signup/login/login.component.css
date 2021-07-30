@@ -1,0 +1,33 @@
+
+.form-group{
+    padding: 5px 0px;
+}
+
+.form-group input{
+    width: 100%;
+    outline: none;
+    padding: 1% 3%;
+    border-radius: 20px;
+}
+
+.item{
+    text-align: center;
+    padding: 1%;
+}
+
+.item a{
+    font-size: 14px;
+    text-decoration: underline;
+    color: #ef5222;
+}
+
+.item button{
+    width: 100%;
+    background: #009344;
+    color: white;
+    border-radius: 20px;
+}
+
+.item button:hover,a:hover{
+    font-weight: bold;
+}

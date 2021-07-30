@@ -1,0 +1,86 @@
+<app-header [index]="1"></app-header>
+<section class="container">
+  <img src="../../assets/schedule.png" alt="" />
+  <div class="transhipment">
+    <h2 class="title">Bến xe & VP Trung chuyển</h2>
+    <table>
+      <tr>
+        <th class="label-station">Bến xe {{route.ben_xe_di}}</th>
+        <th class="address">
+          {{ busStationInfor.dia_chi }}
+        </th>
+      </tr>
+    </table>
+  </div>
+  <div class="transhipment">
+    <div class="title">
+      <select name="routes" id="routes" (change)="onChangeRoute($event.target)">
+        <option *ngFor="let r of routes" value="{{ r.id }}">
+          {{ r.ben_xe_di }} ⇒ {{ r.ben_xe_toi }}
+        </option>
+        >
+      </select>
+      <span>- {{ route.khoang_cach }}km - {{ route.khoang_thoi_gian }}h</span>
+    </div>
+    <div class="content-left">
+      <section>
+        <div style="display: flex; justify-content: space-between;">
+          <label class="label-search">
+            Ngày đi:
+            <input
+              id="search"
+              type="date"
+              value="{{date}}"
+              (change)="onChangeDate($event.target)"
+              min="{{ today }}"
+            />
+          </label>
+          <button (click)="onBookTicket()" class="btn-book-ticket">
+            Đặt vé
+          </button>
+        </div>
+        <div *ngIf="isShow;">
+          <app-loading *ngIf="isLoad"></app-loading>
+          <table id="list-route" *ngIf="!isLoad">
+            <tr>
+              <th class="no-action">Giờ chạy</th>
+              <th class="no-action">Giờ đến</th>
+              <th class="no-action">Giá vé</th>
+            </tr>
+            <ng-container *ngFor="let time of times; let i = index">
+              <tr *ngIf="i % 2 != 0; else elseTimes" class="odd">
+                <td>{{ time.run_time }} h</td>
+                <td>{{ time.end_time }}</td>
+                <td class="price">{{ route.gia_ca }} <sup>đ/vé</sup></td>
+              </tr>
+              <ng-template #elseTimes>
+                <tr>
+                  <td>{{ time.run_time }} h</td>
+                  <td>{{ time.end_time }} h</td>
+                  <td class="price">{{ route.gia_ca }} <sup>đ/vé</sup></td>
+                </tr>
+              </ng-template>
+            </ng-container>
+          </table>
+        </div>
+        <div *ngIf="!isShow">
+          <p id="notify">Tuyến xe đã bị chặn {{route.start_date}} đến {{route.finish_date}}</p>
+        </div>
+      </section>
+    </div>
+    <div class="content-right">
+      <p style="color: #f15a24">(*) Lưu ý:</p>
+      <p style="text-align: left; margin-left: 100px">
+        - Quý khách vui lòng lên sớm hơn 20 phút để thu xếp hành lý.
+      </p>
+      <p style="text-align: left; margin-left: 100px">
+        - Xin hãy lưu lại thông tin mã vé để tiện cho việc kiểm tra.
+      </p>
+      <p style="color: #f15a24">(*) Chúc quý khách có một chuyến đi vui vẻ.</p>
+      <p style="color: #f15a24">
+        (*) Cảm ơn quý khách đã ưu ái nhà xe chúng tôi.
+      </p>
+    </div>
+  </div>
+</section>
+<app-footer></app-footer>

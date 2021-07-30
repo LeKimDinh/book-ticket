@@ -1,0 +1,90 @@
+<section class="admin-container">
+    <div class="admin-home">
+        <div class="home-item"> 
+            <div class="home-item-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="home-item-infor">
+                <p>Tài khoản</p>
+                <label>{{accountNumber}} tài khoản</label>
+            </div>
+        </div>
+        <div class="home-item" style="color:#00613d;">
+            <div class="home-item-icon">
+                <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="home-item-infor">
+                <p>Bến xe</p>
+                <label>{{busStationNumber}} bến xe</label>
+            </div>
+        </div>
+        <div class="home-item">
+            <div class="home-item-icon">
+                <i class="far fa-file-alt"></i>
+            </div>
+            <div class="home-item-infor">
+                <p>Tuyến xe</p>
+                <label>{{busRouterNumber}} tuyến xe</label>
+            </div>
+        </div>
+        <div class="home-item" style="color:#00613d;">
+            <div class="home-item-icon">
+                <i class="fas fa-car"></i>
+            </div>
+            <div class="home-item-infor">
+                <p>Xe</p>
+                <label>{{busNumber}} xe</label>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="isLoad">
+
+    </div>
+    <div class="chart-revenue" *ngIf="!isLoad">
+        <div class="chart-revenue-chart">
+            <div>
+                <div style="display: block">
+                  <canvas baseChart
+                    [datasets]="lineChartData"
+                    [labels]="lineChartLabels"
+                    [options]="lineChartOptions"
+                    [colors]="lineChartColors"
+                    [legend]="lineChartLegend"
+                    [chartType]="lineChartType"
+                    [plugins]="lineChartPlugins">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+        <div class="chart-revenue-infor">
+            <section>
+                <p class="label-blod">
+                    <i class="fas fa-donate"></i>
+                    Doanh thu năm <span class="bold">{{year}}</span>
+                </p>
+                <p class="label-blod" >{{totalAmount}} <sup class="bold">VNĐ </sup> <i class="fas fa-money-check-alt"></i></p>
+                <p class="label-blod">{{totalTicket}} <sup class="bold">Vé </sup> <i class="fas fa-clipboard-list"></i></p>
+                <div id="select-year">
+                    <button 
+                        id="previous-year" 
+                        class="btn-year"
+                        (click)="onPreviousYear()"
+                        >
+                        <i class="fas fa-angle-double-left"></i>
+                        Năm trước
+                    </button>
+                    <button 
+                        id="next-year" 
+                        class="btn-year"
+                        (click)="onNextYear()"
+                        >
+                        Năm sau
+                        <i class="fas fa-angle-double-right"></i>
+                    </button>
+                </div>
+            </section>
+
+        </div>
+    </div>
+    <app-loading *ngIf="isLoad"></app-loading>
+</section>  

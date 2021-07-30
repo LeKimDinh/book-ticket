@@ -1,0 +1,81 @@
+<app-header [index]=-1></app-header>
+<section class="container">
+    <div class="title" style="padding: 1rem;">
+        <h2>Thông tin tài khoản</h2>
+    </div>
+    <app-loading *ngIf="isLoad"></app-loading>
+    <div class="infor-login-container" *ngIf="!isLoad">
+        <div class="infor-login">
+            <div class="title">
+                Thông tin đăng nhập
+            </div>
+            <div class="infor-login-left">
+                <div class='item-left'>
+                    <p class="item-title">Tài khoản:</p>
+                    <p>Mật khẩu:</p>
+                </div>
+                <div class='item-right'>
+                    <p class="item-title">{{customer.taiKhoan}}</p>
+                    <p>**********</p>
+                </div>
+            </div>
+            <div class="infor-login-right">
+                <p *ngIf='!isShow' (click)='onShowEditInfor()' class="edit-password"><i class="far fa-edit"></i> Đổi mật khẩu</p>
+            </div>
+        </div>
+        <div class="edit-infor-login">
+            <div class="title">
+                Đổi mật khẩu
+            </div>
+            <div class="edit-infor">
+                <form [formGroup]='form' autocomplete="on">
+                    <div class="infor-item form-group" style="padding-top: 5px;">
+                        <p>Mật khẩu cũ:</p>
+                        <input type="{{showPassword1}}" placeholder="Nhập mật khẩu cũ" class="form-control" formControlName="oldPassWord" required>
+                        <i *ngIf="showPassword1=='text'" (click)="onShowPassword(0)" class="fas fa-eye-slash"></i>
+                        <i *ngIf="showPassword1=='password'" (click)="onShowPassword(0)" class="fas fa-eye"></i>
+                    </div>
+                    
+                    <div>
+                        <span *ngIf="form.controls.oldPassWord?.errors?.required
+                        && (form.controls.oldPassWord.dirty || form.controls.oldPassWord.touched)" id="notify">* Mật khẩu cũ không được bỏ trống</span>
+                    </div>
+
+                    <div class="infor-item form-group" style="padding-top: 5px;">
+                        <p>Mật khẩu mới:</p>
+                        <input type="{{showPassword2}}" placeholder="Nhập mật khẩu mới" class="form-control" formControlName="newPassWord" required>
+                        <i *ngIf="showPassword2=='text'" (click)="onShowPassword(1)" class="fas fa-eye-slash"></i>
+                        <i *ngIf="showPassword2=='password'" (click)="onShowPassword(1)" class="fas fa-eye"></i>
+                    </div>
+
+                    <div>
+                        <span *ngIf="form.controls.newPassWord?.errors?.required
+                        && (form.controls.newPassWord.dirty || form.controls.newPassWord.touched)" id="notify">* Mật khẩu mới không được bỏ trống</span>
+                    </div>
+
+                    <div class="infor-item form-group" style="padding-top: 5px;">
+                        <p>Xác nhận mật khẩu:</p>
+                        <input type="{{showPassword3}}" placeholder="Nhập mật khẩu mới" class="form-control" formControlName="confirmPassWord" required>
+                        <i *ngIf="showPassword3=='text'" (click)="onShowPassword(2)" class="fas fa-eye-slash"></i>
+                        <i *ngIf="showPassword3=='password'" (click)="onShowPassword(2)" class="fas fa-eye"></i>
+                    </div>
+
+                    <div>
+                        <span *ngIf="form.controls.confirmPassWord?.errors?.required
+                        && (form.controls.confirmPassWord.dirty || form.controls.confirmPassWord.touched)" id="notify">* Xác nhận mật khẩu mới không được bỏ trống</span>
+                    </div>
+                    <div>
+                        <span *ngIf="form.controls.confirmPassWord.value!=form.controls.newPassWord.value
+                        && (form.controls.confirmPassWord.dirty || form.controls.confirmPassWord.touched)" id="notify">* Xác nhận mật khẩu mới không đúng</span>
+                    </div>
+                    
+                    <div *ngIf="isShow" class="infor-item">
+                        <button *ngIf="!form.valid" class="btn-infor-item" id="btn-disable" >Xác nhận</button>
+                        <button *ngIf="form.valid" (click)='onSubmit()' class="btn-infor-item" >Xác nhận</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>

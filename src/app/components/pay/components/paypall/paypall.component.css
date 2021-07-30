@@ -1,0 +1,20 @@
+.title{
+    font-size: 24px;
+    margin: 3%;
+}
+
+label{
+    font-size: 20px;
+    color: #00613d;
+}
+
+span{
+    color: #ef5222;
+}
+
+.pay-infor{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 2%;
+}

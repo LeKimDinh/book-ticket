@@ -1,0 +1,309 @@
+<section class="account-container">
+  <div class="account-header">
+    <div class="account-title">
+      <i class="fas fa-users"></i>
+      <span class="title-item">Quản lý tài khoản</span>
+    </div>
+  </div>
+  <hr />
+  <section id="accounts" *ngIf="!isLoad">
+    <table >
+      <tr>
+        <th>Tên</th>
+        <th>Email</th>
+        <th>Quyền</th>
+        <th></th>
+      </tr>
+      <ng-container *ngFor="let account of accounts; let i = index">
+        <tr [class]="i % 2 != 0?'old':''">
+          <td>{{account.ten_kh}}</td>
+          <td>{{account.email}}</td>
+          <td>{{account.role}}</td>
+          <td class="operations">
+            <i (click)="onShow(false, account)" class="fas fa-user-edit edit"></i>
+          </td>
+        </tr>
+      </ng-container>
+    </table>
+    <button (click)="onShow(true)" id="btn-add">
+      <i class="fas fa-user-plus"></i> Thêm tài khoản
+    </button>
+  </section>
+  <app-loading *ngIf="isLoad" style="padding: 50px;"></app-loading>
+</section>
+<section *ngIf="isShowForm" class="account-container">
+  <div class="account-header">
+    <div *ngIf="isAdd; else elseAdd" class="account-title">
+      <i class="fas fa-user-plus"></i>
+      <span class="title-item">Thêm tài khoản</span>
+    </div>
+    <ng-template #elseAdd>
+      <div class="account-title">
+        <i class="fas fa-user-edit"></i>
+        <span class="title-item">Chỉnh sửa tài khoản</span>
+      </div>
+    </ng-template>
+  </div>
+  <hr />
+  <section>
+    <form [formGroup]="accountForm" (ngSubmit)="onSave()">
+      <section id="account-form">
+        <div class="form-group">
+          <div class="account-item">
+            <label>Tên <span class="delete"> (*) </span>: </label>
+            <input
+              type="text"
+              formControlName="customerName"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid':
+                  isSubmit && 
+                  accountForm.controls.customerName.errors
+              }"
+            />
+            <div *ngIf="isSubmit && accountForm.controls.customerName.errors">
+              <div
+                *ngIf="accountForm.controls.customerName?.errors?.required"
+                class="notify"
+              >
+                * Tên không được bỏ trống.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="account-item">
+            <label>Email <span class="delete"> (*) </span>: </label>
+            <input
+              type="text"
+              formControlName="email"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid': isSubmit && accountForm.controls.email.errors
+              }"
+            />
+          </div>
+          <div *ngIf="isSubmit && accountForm.controls.email.errors">
+            <div
+              *ngIf="accountForm.controls.email?.errors?.required"
+              class="notify"
+            >
+              * Email không được bỏ trống.
+            </div>
+            <div
+              *ngIf="accountForm.controls.email?.errors?.email"
+              class="notify"
+            >
+              * Email sai format.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="account-item">
+            <label>Điện thoại <span class="delete"> (*) </span>: </label>
+            <input
+              type="text"
+              formControlName="phone"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid': isSubmit && accountForm.controls.phone.errors
+              }"
+            />
+            <div *ngIf="isSubmit && accountForm.controls.phone.errors">
+              <div
+                *ngIf="accountForm.controls.phone?.errors?.required"
+                class="notify"
+              >
+                * Số điện thoại không được bỏ trống.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="account-form">
+        <div class="form-group">
+          <div class="account-item">
+            <label>CMND <span class="delete"> (*) </span>: </label>
+            <input
+              type="text"
+              formControlName="identifi"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid': isSubmit && accountForm.controls.identifi.errors
+              }"
+            />
+            <div *ngIf="isSubmit && accountForm.controls.identifi.errors">
+              <div
+                *ngIf="accountForm.controls.identifi?.errors?.required"
+                class="notify"
+              >
+                * CMND không được bỏ trống.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="account-item">
+            <label>Tài khoản <span class="delete"> (*) </span>: </label>
+            <div *ngIf="!isAdd; else elseAccount">
+              <input
+                type="text"
+                formControlName="user"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid': isSubmit && accountForm.controls.user.errors
+                }"
+                readonly
+              />
+            </div>
+            <ng-template #elseAccount>
+              <input
+              type="text"
+              formControlName="user"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid': isSubmit && accountForm.controls.user.errors
+              }"
+            />
+            <div *ngIf="isSubmit && accountForm.controls.user.errors">
+              <div
+                *ngIf="accountForm.controls.user?.errors?.required"
+                class="notify"
+              >
+                * Tên tài khoản không được bỏ trống.
+              </div>
+            </div>
+            </ng-template>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="account-item">
+            <label>Mật khẩu <span class="delete"> (*) </span>: </label>
+            <div *ngIf="!isAdd; else elseAccountPassWord">
+              <input
+              type="passWord"
+              formControlName="passWord"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid': isSubmit && accountForm.controls.passWord.errors
+              }"
+              readonly
+            />
+            </div>
+            <ng-template #elseAccountPassWord>
+              <input
+              type="text"
+              formControlName="passWord"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid': isSubmit && accountForm.controls.passWord.errors
+              }"
+            />
+            <div *ngIf="isSubmit && accountForm.controls.passWord.errors">
+              <div
+                *ngIf="accountForm.controls.passWord?.errors?.required"
+                class="notify"
+              >
+                * Mật khẩu không được bỏ trống.
+              </div>
+            </div>
+            </ng-template>
+
+          </div>
+        </div>
+      </section>
+      <section id="account-form">
+        <div class="form-group">
+          <div class="account-item">
+            <label>Địa chỉ <span class="delete"> (*) </span>: </label>
+            <input
+              type="text"
+              formControlName="address"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid': isSubmit && accountForm.controls.address.errors
+              }"
+            />
+            <div *ngIf="isSubmit && accountForm.controls.address.errors">
+              <div
+                *ngIf="accountForm.controls.address?.errors?.required"
+                class="notify"
+              >
+                * Địa chỉ không được bỏ trống.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="account-item">
+            <label>Tỉnh/ TP <span class="delete"> (*) </span>: </label>
+            <select
+              class="form-control"
+              style="width: 60%; 
+              margin-left: 8%;"
+              required
+              formControlName="city"
+              [ngClass]="{
+                'is-invalid': isSubmit && accountForm.controls.city.errors
+              }"
+              (change)="onSelectCity($event.target)"
+            >
+              <ng-container *ngFor="let c of cities">
+                <option value="{{ c.id }}">
+                  {{ c.name }}
+                </option>
+              </ng-container>
+            </select>
+            <div>
+              <div *ngIf="isSubmit && accountForm.controls.city.errors">
+                <div
+                  *ngIf="accountForm.controls.city?.errors?.required"
+                  class="notify"
+                >
+                  * Thành phố không được bỏ trống.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="account-item">
+            <label>Huyện <span class="delete"> (*) </span>: </label>
+            <select
+              class="form-control"
+              style="width: 60%;
+              margin-left: 13%;"
+              required
+              formControlName="district"
+              [ngClass]="{
+                'is-invalid': isSubmit && accountForm.controls.district.errors
+              }"
+            >
+              <ng-container *ngFor="let district of districts">
+                <option value="{{district.id}}">
+                  {{ district.name }}
+                </option>
+              </ng-container>
+            </select>
+            <div>
+              <div *ngIf="isSubmit && accountForm.controls.district.errors">
+                <div
+                  *ngIf="accountForm.controls.district?.errors?.required"
+                  class="notify"
+                >
+                  * Quận huyện không được bỏ trống.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <button type="submit" id="btn-save">Lưu</button>
+    </form>
+  </section>
+</section>
+
+<section #someElement>
+
+</section>
